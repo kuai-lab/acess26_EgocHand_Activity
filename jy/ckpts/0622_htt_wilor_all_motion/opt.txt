@@ -1,0 +1,2150 @@
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 19:34:47.218603
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 19:35:40.145172
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 20:14:44.291027
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 20:20:26.619608
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 20:29:47.897713
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 20:36:42.119430
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 20:52:24.856770
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 20:57:45.638587
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 21:02:51.651014
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 21:09:01.811701
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 21:13:37.156566
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 21:22:25.653516
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 21:27:13.725087
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 21:33:10.727649
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 21:39:44.913434
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 21:46:02.135646
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 21:52:19.837636
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 22:01:21.434979
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 22:09:51.648292
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 22:10:40.271713
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 22:16:14.306257
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 22:22:04.269424
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-22 22:32:50.632768
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 00:12:12.934206
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 00:21:39.242510
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 00:29:34.347071
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 00:40:30.223702
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 00:51:44.806280
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 01:00:55.323930
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 01:02:38.485444
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 01:07:48.725391
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 01:16:54.270016
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 01:21:59.924777
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 01:30:19.818026
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 01:35:33.906220
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 01:39:38.194089
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 01:47:35.918367
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 120
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 01:53:24.249614
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 120
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 02:00:13.564755
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 120
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 09:14:25.283232
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 120
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 20:36:15.905988
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 120
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 20:44:24.723173
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 120
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 20:49:51.403724
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 120
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 20:56:25.919278
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 120
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 21:15:22.455994
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 120
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 21:21:10.140686
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 120
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 21:27:31.437546
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 120
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 21:36:12.390071
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 120
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 21:43:09.918670
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0622_htt_wilor_all_motion
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 120
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 14
+=====================
+launched train_motion_HTT.py at 2025-06-23 21:49:34.737722
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'

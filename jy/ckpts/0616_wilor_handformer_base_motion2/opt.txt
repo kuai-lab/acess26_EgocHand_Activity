@@ -1,0 +1,43 @@
+====== Options ======
+batch_size: 8
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: 0616_wilor_handformer_base_motion2
+hidden_dim: 256
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.1
+lr_decay_step: 20
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 120
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jy/hello3/checkpoint_30.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 12
+=====================
+launched train_pose_handformer_type_loss_motion.py at 2025-06-16 15:47:59.290910
+=== Git info ====
+b'b21e8e5'
+commit : b'b21e8e5c52179a24131ca6e0fa1f9542308fbc03'
