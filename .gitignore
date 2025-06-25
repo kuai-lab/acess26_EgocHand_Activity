@@ -6,6 +6,7 @@
 *.avi
 *.npy
 *.npz
+*.png
 __pycache__/
 .DS_Store
 .vscode/
@@ -17,10 +18,11 @@ hand_3d_outputs_file
 jy/
 lmdb_imgs/
 wiLo/
-vis
+vis/
 directional_tokens/
 direction_hist_results
 effhandegonet/
 mmpose/
 toy-test/
 ImageBind/
+jy
