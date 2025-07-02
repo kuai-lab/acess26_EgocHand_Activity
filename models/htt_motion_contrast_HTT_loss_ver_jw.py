@@ -150,8 +150,8 @@ class TemporalNet(torch.nn.Module):
         flatten_images = batch_flatten["rgb_image"].cuda()          # ([8, 3, 128, 270, 480])
         # import pdb;pdb.set_trace()                                                                    
         # flatten_images: [B, C, T, H, W]
-        B, C, T, H, W = flatten_images.shape
-        flatten_images = flatten_images.reshape(B*T, C, H, W)              # [B*T, C, H, W] 
+        B, C, n_token_action, H, W = flatten_images.shape
+        flatten_images = flatten_images.reshape(B*n_token_action, C, H, W)              # [B*T, C, H, W] 
         flatten_images = flatten_images.cuda()               # [1024, 3, 270, 480])
 
         pose_seq = batch_flatten["pose_keypoint"].cuda()     # [8, 3, 128, 21, 2])
@@ -169,9 +169,10 @@ class TemporalNet(torch.nn.Module):
         # Contrastive Loss for rotation token
         B_rot = rotation_prior_token.shape[0]
         B, T, D = pose_feat.shape   # 실제 pose_feat는 (B, num_mactions, 256)
+        F = 16
         gt_bidirectional_labels = batch_flatten['bidirectional_label'].cuda()  # [B_total]
-        gt_bidirectional_labels = gt_bidirectional_labels[:B_rot]
-        gt_labels_expanded = gt_bidirectional_labels.unsqueeze(1).expand(-1, T).reshape(-1)
+        gt_bidirectional_labels=gt_bidirectional_labels.view(B,T,F)
+        gt_labels_expanded = gt_bidirectional_labels[:, :, 0].reshape(-1)
         rot_token_flat = rotation_prior_token.view(-1, D)
         valid_mask = (gt_labels_expanded != -1)
         assert rot_token_flat.shape[0] == valid_mask.shape[0], f"rot_token_flat={rot_token_flat.shape}, valid_mask={valid_mask.shape}"

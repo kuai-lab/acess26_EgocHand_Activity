@@ -7,6 +7,7 @@ from einops import repeat
 from models import resnet
 from models.transformer import Transformer_Encoder, PositionalEncoding
 from models.actionbranch import ActionClassificationBranch
+from models.objclassbranch import ObjClassBranch        ## 07/02 추가 
 from models.handtypebranch import HandTypeClassificationBranch
 from models.utils import  To25DBranch,compute_hand_loss,loss_str2func
 from models.mlp import MultiLayerPerceptron
@@ -143,12 +144,13 @@ class TemporalNet(torch.nn.Module):
         self.pose_net.pose_tf = nn.Identity()
         self.pose_net.classifier = nn.Identity()
         self.lambda_contrastive = 0.5
+        self.obj_classification=ObjClassBranch(num_obj=self.num_objects, feature_dim=transformer_d_model)
 
 
     def forward(self, batch_flatten, epoch=0, train=True, verbose=False):
-        import pdb;pdb.set_trace()
+
         flatten_images = batch_flatten["rgb_image"].cuda()          # ([8, 3, 128, 270, 480])
-        # import pdb;pdb.set_trace()                                                                    
+        # import pdb;pdb.set_trace()                                                                   
         # flatten_images: [B, C, T, H, W]
         B, C, T, H, W = flatten_images.shape
         flatten_images = flatten_images.reshape(B*T, C, H, W)              # [B*T, C, H, W] 
@@ -169,9 +171,10 @@ class TemporalNet(torch.nn.Module):
         # Contrastive Loss for rotation token
         B_rot = rotation_prior_token.shape[0]
         B, T, D = pose_feat.shape   # 실제 pose_feat는 (B, num_mactions, 256)
+        F = 16
         gt_bidirectional_labels = batch_flatten['bidirectional_label'].cuda()  # [B_total]
-        gt_bidirectional_labels = gt_bidirectional_labels[:B_rot]
-        gt_labels_expanded = gt_bidirectional_labels.unsqueeze(1).expand(-1, T).reshape(-1)
+        gt_bidirectional_labels=gt_bidirectional_labels.view(B,T,F)
+        gt_labels_expanded = gt_bidirectional_labels[:, :, 0].reshape(-1)
         rot_token_flat = rotation_prior_token.view(-1, D)
         valid_mask = (gt_labels_expanded != -1)
         assert rot_token_flat.shape[0] == valid_mask.shape[0], f"rot_token_flat={rot_token_flat.shape}, valid_mask={valid_mask.shape}"
@@ -378,51 +381,44 @@ class TemporalNet(torch.nn.Module):
         smoothed = scipy.ndimage.gaussian_filter1d(signed_accumulated_angle_list, sigma=sigma)
         
         return torch.tensor(smoothed, dtype=torch.float32)
+
     ### ========================================================= ###
     ### ========================================================= ###
-
-
-    def predict_object(self, sample, features, weights, total_loss, verbose=False):
-        olabel_feature = features
-        out = self.obj_classification(olabel_feature)
-
-        olabel_results, olabel_losses = {}, {}
-
-        obj_idx_list = sample[BaseQueries.OBJIDX]  # list of list[int], e.g. [[3], [1,4]]
-        # print(obj_idx_list)
+    def predict_object(self,sample,features, weights, total_loss,verbose=False):
+        olabel_feature=features
+        out=self.obj_classification(olabel_feature)
+        batch_size = features.shape[0] #2 X 128
         num_classes = 63
-        batch_size = features.shape[0]
-
-        # multi-hot label 생성
+        olabel_results, olabel_losses={},{}
+        
+        obj_idx_list = sample[BaseQueries.OBJIDX]  # list of list[int], e.g. [[3], [1,4]]
         olabel_gts = torch.zeros((batch_size, num_classes), device=features.device)
-        # print(enumerate(obj_idx_list))
         
         for i, obj_ids in enumerate(obj_idx_list):
             for obj_id in obj_ids:
-                olabel_gts[i, obj_id] = 1.0     # one hot encoding
-        # print("object_label gt: ", olabel_gts)
-
-        logits = out["reg_outs"]                # shape: [B, C]
-
-        olabel_results["obj_gt_labels"] = olabel_gts
-        olabel_results["obj_pred_labels"] = (logits > 0).float()
-        olabel_results["obj_reg_possibilities"] = torch.sigmoid(logits)
-
-        # ✅ BCE loss 사용 (object multi label classification)
+                olabel_gts[i, obj_id] = 1.0 
+                
+        olabel_results["obj_gt_labels"]=olabel_gts
+        olabel_results["obj_pred_labels"]=out["pred_labels"]
+        olabel_results["obj_reg_possibilities"]=out["reg_possibilities"]
+        
+        # print(f"[GT Log] Object GT (shape): {olabel_gts.shape}")
+        # print(f"[Pred Log] Pred Labels shape: {out['pred_labels'].shape}")
+        
         bce_loss_fn = torch.nn.BCEWithLogitsLoss(reduction="none")
-        olabel_loss = bce_loss_fn(logits, olabel_gts)  # [B, C]
+        olabel_loss = bce_loss_fn(out["reg_outs"], olabel_gts)  # [B, C]
         olabel_loss = torch.sum(olabel_loss, dim=1)  # sum over classes per sample
         olabel_loss = torch.mul(olabel_loss, weights.flatten())
         olabel_loss = torch.sum(olabel_loss) / torch.sum(weights)
+        
 
         if total_loss is None:
-            total_loss = self.lambda_action_loss * olabel_loss
+            total_loss=self.lambda_action_loss*olabel_loss
         else:
-            total_loss += self.lambda_action_loss * olabel_loss
-            olabel_losses["olabel_loss"] = olabel_loss
-
+            total_loss+=self.lambda_action_loss*olabel_loss
+            olabel_losses["olabel_loss"]=olabel_loss
         return olabel_results, total_loss, olabel_losses
-
+    
 
     def predict_handtype(self, sample, features, weights, total_loss, verbose=False):   # h2o용(양손데이터)
         hand_feature = features

@@ -11,7 +11,7 @@ from libyana.modelutils import freeze
 from libyana.randomutils import setseeds
 
 from datasets import collate
-from models.htt_motion_contrast_HTT_loss_ver_jw import TemporalNet
+from models.htt_motion_contrast_HTT_loss_ver_jy_0702 import TemporalNet
 from netscripts import epochpass_htt
 from netscripts import reloadmodel, get_dataset_rgb_mp 
 from torch.utils.tensorboard import SummaryWriter
