@@ -237,7 +237,6 @@ class MHAVhands(object):
             "bidirectional_label": self.bidirectional_labels_array  # 👈 여기!(06/21)
 
         }
-
         print("\n[DEBUG] Final annotation info:")
         # print(f"→ Total images: {len(image_names)}")
         print(f"→ Total sample_infos: {len(sample_infos)}")
@@ -245,7 +244,9 @@ class MHAVhands(object):
         print(f"→ Total obj_idxs: {len(obj_idxs)}")
 
         # Store to class
-        self.modal_paths = annotations["modal_paths"]  # ✅ image_names → modal_paths
+        self.modal_paths = annotations["modal_paths"]  # image_names → modal_paths
+        print(f"→ modal_paths: {len(self.modal_paths)}개 로드됨")
+
         # self.image_names = annotations["image_names"]
         self.sample_infos = annotations["sample_infos"]
         self.action_idxs = torch.tensor(annotations["action_idxs"], dtype=torch.long)

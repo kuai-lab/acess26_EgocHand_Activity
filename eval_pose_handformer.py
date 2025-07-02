@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 from tqdm import tqdm
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
-from models.htt_handformer_type_loss_motion_final_contrastive_loss_concat import TemporalNetHandFormer
+from models.htt_handformer_type_loss_motion_final import TemporalNetHandFormer
 from netscripts import get_dataset_rgb_wilor_former_all
 from datasets import collate
 from libyana.modelutils import freeze

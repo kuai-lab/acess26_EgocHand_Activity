@@ -11,12 +11,11 @@ from libyana.modelutils import freeze
 from libyana.randomutils import setseeds
 
 from datasets import collate
-# from datasets import collate_gibson
-from models.htt_handformer_type_loss_motion_final_contrastive_loss_concat import TemporalNetHandFormer
-from netscripts import epochpass_handformer_loss_full
-from netscripts import reloadmodel, get_dataset_rgb_wilor_former_all 
+from models.htt_motion_contrast_HTT_loss_ver_jy import TemporalNet
+from netscripts import epochpass_htt
+from netscripts import reloadmodel, get_dataset_rgb_mp 
 from torch.utils.tensorboard import SummaryWriter
-from netscripts.get_dataset_rgb_wilor_former_all import DataLoaderX 
+from netscripts.get_dataset_rgb_mp import DataLoaderX 
 plt.switch_backend("agg")
 print('********')
 print('Lets start')
@@ -36,9 +35,11 @@ def main(args):
     board_writer=SummaryWriter(log_dir=exp_id) 
     
 
+
+
     print("**** Lets train on", args.train_dataset, args.train_split)
 
-    train_dataset, _ = get_dataset_rgb_wilor_former_all.get_dataset_htt(
+    train_dataset, _ = get_dataset_rgb_mp.get_dataset_htt(
         args.train_dataset,
         dataset_folder=args.dataset_folder,
         split=args.train_split, 
@@ -48,8 +49,8 @@ def main(args):
         ntokens_pose=args.ntokens_pose,
         ntokens_action=args.ntokens_action,
         spacing=args.spacing,
-        is_shifting_window=True,
-        split_type="subjects"
+        is_shifting_window=False,
+        split_type="actions"
     )
     print("MHAV train dataset loading...")
 
@@ -64,10 +65,11 @@ def main(args):
     )
     print("Loading finished")
     dataset_info=train_dataset.pose_dataset
+    # print(dir(train_dataset.pose_dataset))
 
 
     #Re-load pretrained weights  
-    model= TemporalNetHandFormer(dataset_info=dataset_info,
+    model= TemporalNet(dataset_info=dataset_info,
                 is_single_hand=args.train_dataset!="h2ohands",
                 transformer_num_encoder_layers_action=args.enc_action_layers,
                 transformer_num_encoder_layers_pose=args.enc_pose_layers,
@@ -76,10 +78,14 @@ def main(args):
                 transformer_nhead=args.nheads,
                 transformer_dim_feedforward=args.dim_feedforward,
                 transformer_normalize_before=True,
-                embedding_dim_final=256,
-                microaction_window_size=15,
-                rgb_input_feat_dim=512,
-                use_3d_pose=True)
+                lambda_action_loss=args.lambda_action_loss,
+                lambda_hand_2d=args.lambda_hand_2d, 
+                lambda_hand_z=args.lambda_hand_z, 
+                ntokens_pose= args.ntokens_pose,
+                ntokens_action=args.ntokens_action,
+                trans_factor=args.trans_factor,
+                scale_factor=args.scale_factor,
+                pose_loss=args.pose_loss)
 
     if args.train_cont:
         epoch=reloadmodel.reload_model(model,args.resume_path)  
@@ -128,7 +134,7 @@ def main(args):
     
     for epoch_idx in tqdm(range(epoch, args.epochs+1), desc="epoch"):
         print(f"***Epoch #{epoch_idx}")
-        epochpass_handformer_loss_full.epoch_pass(
+        epochpass_htt.epoch_pass(
             loader,
             model,
             train=True,
@@ -163,7 +169,7 @@ def main(args):
 if __name__ == "__main__":
     torch.multiprocessing.set_sharing_strategy("file_system")
     parser = argparse.ArgumentParser() 
-    parser.add_argument('--experiment_tag',default='custom') 
+    parser.add_argument('--experiment_tag',default='server_test') 
     parser.add_argument('--dataset_folder',default='../data_MHAV/')  # 바꿔야댐
     parser.add_argument('--cache_folder',default='./jy/ckpts/')     # 없음
     parser.add_argument('--resume_path',default='./jy/hello3/checkpoint_30.pth')       # 03/27~
@@ -186,13 +192,17 @@ if __name__ == "__main__":
     parser.add_argument("--train_cont", action="store_true", help="Continue from previous training")
     parser.add_argument("--manual_seed", type=int, default=0)
     
-    parser.add_argument("--batch_size", type=int, default=8, help="Batch size")
-    parser.add_argument("--workers", type=int, default=14, help="Number of workers for multiprocessing")
+
+    
+
+    parser.add_argument("--batch_size", type=int, default=2, help="Batch size")
+    # parser.add_argument("--workers", type=int, default=16, help="Number of workers for multiprocessing")
+    parser.add_argument("--workers", type=int, default=16, help="Number of workers for multiprocessing")
 
     parser.add_argument("--pyapt_id")
     parser.add_argument("--epochs", type=int, default=45)
-    parser.add_argument("--lr_decay_gamma", type=float, default= 0.1,help="Learning rate decay factor, if 1, no decay is effectively applied")
-    parser.add_argument("--lr_decay_step", type=float, default=20)
+    parser.add_argument("--lr_decay_gamma", type=float, default= 0.5,help="Learning rate decay factor, if 1, no decay is effectively applied")
+    parser.add_argument("--lr_decay_step", type=float, default=15)
     parser.add_argument("--lr", type=float, default=3e-5, help="Learning rate")
     parser.add_argument("--optimizer", choices=["adam", "sgd"], default="adam")
     parser.add_argument("--weight_decay", type=float, default=0)
@@ -210,7 +220,7 @@ if __name__ == "__main__":
                         help="Number of encoding layers in A")
     parser.add_argument('--dim_feedforward', default=2048, type=int,
                         help="Intermediate size of the feedforward layers in the transformer blocks")
-    parser.add_argument('--hidden_dim', default=256, type=int,
+    parser.add_argument('--hidden_dim', default=512, type=int,
                         help="Size of the embeddings (dimension of the transformer)")
     parser.add_argument('--dropout', default=0.0, type=float,
                         help="Dropout applied in the transformer")

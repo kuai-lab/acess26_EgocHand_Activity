@@ -10,9 +10,9 @@ from libyana.modelutils import modelio
 from libyana.modelutils import freeze
 from libyana.randomutils import setseeds
 
-from datasets import collate
+from datasets import collate_origin
 from models.htt import TemporalNet
-from netscripts import epochpass
+from netscripts import epochpass_htt
 from netscripts import reloadmodel, get_dataset 
 from torch.utils.tensorboard import SummaryWriter
 from netscripts.get_dataset import DataLoaderX 
@@ -21,7 +21,7 @@ print('********')
 print('Lets start')
 
 def collate_fn(seq, extend_queries=[]):
-    return collate.seq_extend_flatten_collate(seq,extend_queries)
+    return collate_origin.seq_extend_flatten_collate(seq,extend_queries)
     
 def main(args):
     setseeds.set_all_seeds(args.manual_seed)
@@ -134,7 +134,7 @@ def main(args):
     
     for epoch_idx in tqdm(range(epoch, args.epochs+1), desc="epoch"):
         print(f"***Epoch #{epoch_idx}")
-        epochpass.epoch_pass(
+        epochpass_htt.epoch_pass(
             loader,
             model,
             train=True,

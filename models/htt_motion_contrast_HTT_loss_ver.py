@@ -17,7 +17,6 @@ from HandFormer.HandFormer.models.microaction_encoder_HTT import MicroactionEnco
 from HandFormer.HandFormer.models.hf_pose_motion_FINAL_HTT import HF_Pose      
 
 
-
 class ResNet_(torch.nn.Module):
     def __init__(self,resnet_version=18):
         super().__init__()
@@ -50,7 +49,7 @@ class TemporalNet(torch.nn.Module):
                         lambda_hand_2d=None,
                         lambda_hand_z=None,
                         ntokens_pose=1,
-                        ntokens_action=120,
+                        ntokens_action=128,
                         embedding_dim_final=256,
                         dataset_info=None,
                         trans_factor=100,
@@ -98,6 +97,7 @@ class TemporalNet(torch.nn.Module):
                                 normalize_before=transformer_normalize_before)
                                     
         # Object classification
+        # self.num_objects=dataset_info.num_objects
         self.num_objects=63
         self.image_to_olabel_embed=torch.nn.Linear(transformer_d_model,transformer_d_model)
         self.obj_classification=ActionClassificationBranch(num_actions=self.num_objects, action_feature_dim=transformer_d_model)
@@ -105,7 +105,10 @@ class TemporalNet(torch.nn.Module):
         # Feature to Action
         self.hand_pose3d_to_action_input=torch.nn.Linear(self.num_joints*2,transformer_d_model)
         self.olabel_to_action_input=torch.nn.Linear(self.num_objects,transformer_d_model)
-
+        self.pose_concat_to_action_input = torch.nn.Linear(
+            transformer_d_model + 256,  # 기존 action input dim + pose_feat dim
+            transformer_d_model
+        )
         # Egocentric Action Module (Global Transformer)
         self.concat_to_action_input=torch.nn.Linear(transformer_d_model*2 ,transformer_d_model)
         self.num_actions=dataset_info.num_actions
@@ -126,6 +129,7 @@ class TemporalNet(torch.nn.Module):
         self.hand_type_classification = HandTypeClassificationBranch(num_types=self.num_handtypes, hand_feature_dim=transformer_d_model)
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.clip_model, _ = clip.load("ViT-B/32", device=self.device)
+        # self.hand_pred_label_txt = ['No hand', 'large diameter', 'medium wrap', 'adducted thumb', 'prismatic finger', 'pinch', 'precision disc', 'tripod', 'fixed hook', 'index finger', 'extension type', 'writing tripod', 'parallel extension', 'abduction grip', 'lateral tripod', 'quadpod', 'stick', 'pincer', 'flattened palm', 'thumb in', 'curl index finger', 'spray', 'fist', 'bend index finger']
         self.hand_pred_label_txt = 'None,Quadpod,small Diameter,Medium Diameter,Thumb up,Thumb-Middle Grip,Tip Pinch,Disk Grip,Dynamic Tripod,Fixed Hook,Fist,Large Diameter,parallel Extension,Thumb-2 Finger,Writing Tripod,Tripod,Hand Clench,Pincer Grip,Open Hand,Stirring,Spray-Trigger Grip,Index Finger Flexion,Thumb Tucked,Extended Index Curl,Relaxing Hand,Dynamic Flatten,Dynamic Pinch,Index Finger,Full Rotation,Dynamic Parallel Extension,Dynamic Lateral Pinch,Poking,Middle Rotation,Index Rotation,Adduction Grip,Dynamic Diameter,Palmar,Hammering,Extension Type'.split(',')
         self.tokenized_label = clip.tokenize(self.hand_pred_label_txt).to(self.device)
         self.hlabel_features = self.clip_model.encode_text(self.tokenized_label).detach()
@@ -161,8 +165,8 @@ class TemporalNet(torch.nn.Module):
         losses = {} ;results = {}
 
         # ======== Feature Extraction ========
-        flatten_in_feature, _ =self.meshregnet(flatten_images)        # RGB Encoder=> (960, 512)
-        pose_feat, rotation_prior_token = self.pose_net(pose_seq)     # [B, T, D]= [8, 128//16=8, 256] => (pose + rotation) token
+        flatten_in_feature, _ =self.meshregnet(flatten_images)        # RGB Encoder
+        pose_feat, rotation_prior_token = self.pose_net(pose_seq)                           # [B, T, D]= [8, 128//16=8, 256] => (pose + rotation) token
         # combined_token = torch.cat([pose_feat, rotation_prior_token], dim=-1)
         
         ## ============================Contrastive Loss for rotation token========================== ###
@@ -235,18 +239,20 @@ class TemporalNet(torch.nn.Module):
         hand_pred_label_features = torch.stack([self.hlabel_features[int(value)] for value in hlabel_results['hand_pred_labels']])
         flatten_ain_feature_hlabel_txt=torch.nn.functional.normalize(hand_pred_label_features).to(torch.cuda.current_device())
         
-        flatten_ain_feature=torch.cat((flatten_pout_feature,flatten_ain_feature_olabel),dim=1) # (B * 128, 512*2=1024) => object랑  concat        
-        flatten_ain_feature=self.concat_to_action_input(flatten_ain_feature) # (B * 128, 512)
-        flatten_ain_feature=torch.cat((flatten_ain_feature, flatten_ain_feature_hlabel_txt), dim=1) # (B * 128, 1536)
+        # flatten_ain_feature=torch.cat((flatten_pout_feature,flatten_ain_feature_olabel),dim=1) # (B * 128, 512*2=1024) => object랑  concat        
+        # flatten_ain_feature=self.concat_to_action_input(flatten_ain_feature) # (B * 128, 512)
+
+        # flatten_ain_feature=torch.cat((flatten_ain_feature, flatten_ain_feature_hlabel_txt), dim=1) # (B * 128, 1536)
+        # flatten_ain_feature=self.(flatten_ain_feature) # (B*128, 512)
 
         ### ======================================================================================= ##
         ## === Action Transfomer에 pose encoding된 피쳐(pose_token, wrist_token rot_token포함)추가 === ##'걍 둘다 추가안함
         # import pdb; pdb.set_trace()
         flatten_ain_feature=torch.cat((flatten_ain_feature_olabel, flatten_ain_feature_hlabel_txt), dim=1) #128, 1024
-        flatten_ain_feature=self.hlabel_concat_to_action_input(flatten_ain_feature)
-        batch_seq_ain_feature=flatten_ain_feature.contiguous().view(-1,self.ntokens_action,flatten_ain_feature.shape[-1])
+        flatten_ain_feature=self.concat_to_action_input(flatten_ain_feature)
 
         # Concat trainable token
+        batch_seq_ain_feature=flatten_ain_feature.contiguous().view(-1,self.ntokens_action,flatten_ain_feature.shape[-1])
         batch_aglobal_tokens = repeat(self.action_token,'() n d -> b n d',b=batch_seq_ain_feature.shape[0])
         batch_seq_ain_feature=torch.cat((batch_aglobal_tokens,batch_seq_ain_feature),dim=1)
         batch_seq_ain_pe=self.transformer_pe(batch_seq_ain_feature)
@@ -389,6 +395,7 @@ class TemporalNet(torch.nn.Module):
         olabel_results, olabel_losses = {}, {}
 
         obj_idx_list = sample[BaseQueries.OBJIDX]  # list of list[int], e.g. [[3], [1,4]]
+        import pdb; pdb.set_trace()
         # print(obj_idx_list)
         num_classes = 63
         batch_size = features.shape[0]

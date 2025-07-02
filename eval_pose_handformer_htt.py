@@ -11,7 +11,7 @@ from libyana.modelutils import freeze
 from libyana.randomutils import setseeds
 
 from datasets import collate
-from models.htt_motion_contrast_HTT_loss_ver import TemporalNet
+from models.htt_motion_contrast_HTT_loss_ver_jy import TemporalNet
 from netscripts import epochpass_htt
 from netscripts import reloadmodel, get_dataset_rgb_mp 
 from torch.utils.tensorboard import SummaryWriter
@@ -137,7 +137,7 @@ if __name__ == "__main__":
 #
     #Transformer parameters
     parser.add_argument("--ntokens_pose", type=int, default=16, help="N tokens for P")
-    parser.add_argument("--ntokens_action", type=int, default=128, help="N tokens for A")
+    parser.add_argument("--ntokens_action", type=int, default=120, help="N tokens for A") #128
     parser.add_argument("--spacing",type=int,default=2, help="Sample space for temporal sequence")
     
     # Dataset params

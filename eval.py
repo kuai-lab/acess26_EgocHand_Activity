@@ -9,10 +9,10 @@ from libyana.exputils.argutils import save_args
 from libyana.modelutils import freeze
 from libyana.randomutils import setseeds
 
-from datasets import collate
-from models.htt_motion_contrast_HTT import TemporalNet
+from datasets import collate_origin
+from models.htt import TemporalNet
 from netscripts import epochpass_htt
-from netscripts import reloadmodel, get_dataset_rgb_mp
+from netscripts import reloadmodel, get_dataset
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 plt.switch_backend("agg")
@@ -21,7 +21,7 @@ print('Lets start')
 
 
 def collate_fn(seq, extend_queries=[]):
-    return collate.seq_extend_flatten_collate(seq,extend_queries)#seq_extend_collate(seq, extend_queries)
+    return collate_origin.seq_extend_flatten_collate(seq,extend_queries)#seq_extend_collate(seq, extend_queries)
 
 
 
@@ -40,7 +40,7 @@ def main(args):
     # config=vars(args) )
 
     print("**** Lets eval on", args.val_dataset, args.val_split)
-    val_dataset, _ = get_dataset_rgb_mp.get_dataset_htt(
+    val_dataset, _ = get_dataset.get_dataset_htt(
         args.val_dataset,
         dataset_folder=args.dataset_folder,
         split=args.val_split, 
