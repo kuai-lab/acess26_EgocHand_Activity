@@ -118,6 +118,7 @@ class MHAVhands(object):
         # Load hand type labels
         self.num_handtypes = 39
         self.hand_labels, self.subjects_infos = mhavutils_rgb_mp.get_all_hand_labels('../data_MHAV/annotation_0620_final.xlsx', self.rgb_root, self.rgb_template, self.thermal_root, self.mp_template)
+        # import pdb; pdb.set_trace()
         self.mhav_hand_map={-1: 0,  1: 1,  2: 2,  3: 3,  4: 4,  8: 5,  9: 6,  12: 7,  14: 8,  15: 9,  17: 10,  18: 11,  22: 12,  23: 13,  27: 14, 29: 15,  32: 16,  33: 17,  34: 18,  36: 19,  38: 20,  39: 21,  40: 22,  41: 23,  42: 24,  43: 25,  44: 26,  45: 27,  46: 28,  47: 29,  48: 30,  49: 31,  50: 32,  51: 33,  52: 34,  53: 35,  54: 36,  55: 37,  56: 38}
 
         
@@ -214,6 +215,7 @@ class MHAVhands(object):
                     obj_idxs.append(obj_idx)
 
                     
+
                     # === bidirectional label 추가 ===
                     # assemble, screw => 0 / unassemble, unscrew => 1 / 기타 => -1
                     if action_name in ["assemble", "screw"]:
@@ -228,7 +230,6 @@ class MHAVhands(object):
 
         annotations = {
             "modal_paths" : modal_paths,        # for Multi-Modal
-            # "image_names": image_names,
             "sample_infos": sample_infos,
             "action_idxs": action_idxs,
             "seq_idx" : seq_idx_counter,
@@ -326,9 +327,14 @@ class MHAVhands(object):
         idx = self.get_dataidx(idx)
         img_path = self.modal_paths[idx]["rgb"]
         path_info = img_path.split('/')
-        scene = path_info[4]
-        subject = path_info[5]
-        sequence = path_info[6]
+        # import pdb;pdb.set_trace()
+        ## ----- Tlqkf ----- ##
+        scene = path_info[2]
+        subject = path_info[3]
+        sequence = path_info[4]
+        # print("subject:", subject)
+        ## ----- Tlqkf ----- ##
+
         frame_number = int(path_info[-1].split('.')[0].split('_')[-1])
 
         both_labels = []
@@ -411,6 +417,7 @@ class MHAVhands(object):
             both_labels.append(0)
 
         return both_labels
+
 
 
     def get_camintr(self, idx):

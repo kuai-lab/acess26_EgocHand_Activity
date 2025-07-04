@@ -146,7 +146,7 @@ class TemporalNet(torch.nn.Module):
 
 
     def forward(self, batch_flatten, epoch=0, train=True, verbose=False):
-        import pdb;pdb.set_trace()
+        # import pdb;pdb.set_trace()
         flatten_images = batch_flatten["rgb_image"].cuda()          # ([8, 3, 128, 270, 480])
         # import pdb;pdb.set_trace()                                                                    
         # flatten_images: [B, C, T, H, W]
@@ -232,6 +232,7 @@ class TemporalNet(torch.nn.Module):
         losses.update(hlabel_losses)
     
         # ======== Egocentric Action Module ========
+        # import pdb;pdb.set_trace()
         flatten_ain_feature_olabel=self.olabel_to_action_input(olabel_results["obj_reg_possibilities"]) # flatten_ain_feature_olabel shape : (B * 128, 512)
         hand_pred_label_features = torch.stack([self.hlabel_features[int(value)] for value in hlabel_results['hand_pred_labels']])
         flatten_ain_feature_hlabel_txt=torch.nn.functional.normalize(hand_pred_label_features).to(torch.cuda.current_device())
@@ -288,10 +289,11 @@ class TemporalNet(torch.nn.Module):
 
         # positive mask (same label)
         pos_mask = (labels == labels.T) & valid_mask   # [N, N]
+        pos_mask = pos_mask & (~torch.eye(labels.size(0), device=features.device).bool())
         # negative mask implicitly handled (all except pos and invalid)
 
         # Exclude self-comparison
-        logits = logits - torch.eye(labels.size(0), device=features.device) * 1e9
+        # logits = logits - torch.eye(labels.size(0), device=features.device) * 1e9s
 
         exp_logits = torch.exp(logits) * valid_mask.float()
         pos_sum = (exp_logits * pos_mask.float()).sum(1)

@@ -313,8 +313,9 @@ class SeqSet(Dataset):
 
         if TransQueries.IMAGE in query:
             sample[TransQueries.IMAGE] = [img, keypoint_tensor]
-
+        # import pdb;pdb.set_trace()
         hand_label = self.pose_dataset.get_hand_label(idx)
+
         if hand_label is None:
             hand_label = [0, 0]
         sample["hand_label_left"] = hand_label[0]

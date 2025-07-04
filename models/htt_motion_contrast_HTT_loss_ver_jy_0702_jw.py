@@ -179,10 +179,10 @@ class TemporalNet(torch.nn.Module):
         valid_mask = (gt_labels_expanded != -1)
         assert rot_token_flat.shape[0] == valid_mask.shape[0], f"rot_token_flat={rot_token_flat.shape}, valid_mask={valid_mask.shape}"
     
-        ## ======================================================================================## 
+        ## =====================================================================## 
         ## ===============================이상한건지 맞는건지 확인중==================================##
         if valid_mask.sum() > 1:
-            contrastive_loss = self.compute_contrastive_loss(
+            contrastive_loss = self.compute_contrastive_loss_jw(
                 rot_token_flat[valid_mask],
                 gt_labels_expanded[valid_mask])
         else:
@@ -466,11 +466,13 @@ class TemporalNet(torch.nn.Module):
 
         # =========== Focus on Right hand ===========
         hlabel_gts = hlabel_gts_right
-        print("hlabel_gts:", hlabel_gts)
+        print("hlabel_gts :", hlabel_gts)
+        # import pdb;pdb.set_trace()
+
         hlabel_results["hand_gt_labels"]=hlabel_gts
         hlabel_results["hand_pred_labels"]=out["pred_labels"]
+        print("pred hlabel:", hlabel_results["hand_pred_labels"])
         hlabel_results["hand_reg_possibilities"]=out["reg_possibilities"]
-        print("hand pred labels:", hlabel_results["hand_pred_labels"])
 
         hlabel_loss = torch_f.cross_entropy(out["reg_outs"],hlabel_gts,reduction='none')
         hlabel_loss = torch.mul(torch.flatten(hlabel_loss),torch.flatten(weights))
@@ -483,6 +485,8 @@ class TemporalNet(torch.nn.Module):
             total_loss+=self.lambda_handtype_loss*hlabel_loss
             hlabel_losses["hlabel_loss"]=hlabel_loss
         return hlabel_results, total_loss, hlabel_losses
+
+
 
     def predict_action(self,sample,features,weights,total_loss=None,verbose=False):
         action_feature=features

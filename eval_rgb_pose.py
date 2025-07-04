@@ -11,7 +11,7 @@ from libyana.modelutils import freeze
 from libyana.randomutils import setseeds
 
 from datasets import collate
-from models.htt_motion_contrast_HTT import TemporalNet
+from models.htt_motion_contrast_HTT_loss_ver_jy_0702_jw import TemporalNet
 from netscripts import epochpass_htt
 from netscripts import reloadmodel, get_dataset_rgb_mp 
 from torch.utils.tensorboard import SummaryWriter
@@ -130,7 +130,6 @@ if __name__ == "__main__":
 
     parser.add_argument('--dataset_folder',default='../data_MHAV/')  
     parser.add_argument('--cache_folder',default='./jy/ckpts/')
-    # parser.add_argument('--resume_path',default='./ws/ckpts/htt_fpha/checkpoint_45.pth')
 
     parser.add_argument('--resume_path',default='./jy/hello3/checkpoint_45.pth')
     # parser.add_argument('--resume_path',default='./jy/ckpts/linear_concat/checkpoint_2.pth')

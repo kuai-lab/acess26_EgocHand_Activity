@@ -54,9 +54,6 @@ def get_dataset_htt(
     else:
         raise ValueError(f"Unknown dataset {dataset_name}")
 
-
-
-
     dataset = seqset_htt_mm.SeqSet(
         pose_dataset=pose_dataset,
         train=not no_augm,

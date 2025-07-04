@@ -353,6 +353,7 @@ class SeqSet(Dataset):
 
         # ===== Hand label =====
         hand_label = self.pose_dataset.get_hand_label(idx)
+        import pdb;pdb.set_trace()
         if hand_label is None:
             hand_label = [0, 0]
         sample["hand_label_left"] = hand_label[0]

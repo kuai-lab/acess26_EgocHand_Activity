@@ -1,6 +1,5 @@
 from collections import defaultdict
 import os
-
 import numpy as np
 from tqdm import tqdm  
 import pandas as pd
@@ -92,9 +91,6 @@ def get_hand_type_info(path_hand_type_info):
     return hand_type_info
 
 
-# multi-modal(depth, thermal) 용도로 변경
-import os
-import pandas as pd
 
 def get_all_hand_labels(file_path, rgb_root, rgb_template, thermal_root, mp_template): 
     info = dict()
@@ -110,7 +106,7 @@ def get_all_hand_labels(file_path, rgb_root, rgb_template, thermal_root, mp_temp
         save = True
         reason = ""
 
-        # 👈 왼쪽 라벨 유효성 검사
+        # 왼쪽 라벨 유효성 검사
         if isinstance(l_info, str):
             for item in l_info.split(','):
                 tmp = item.split(':')[-1].strip()
@@ -128,7 +124,7 @@ def get_all_hand_labels(file_path, rgb_root, rgb_template, thermal_root, mp_temp
             save = False
             reason = "[LEFT LABEL NOT STR]"
 
-        # 👈 오른쪽 라벨 유효성 검사
+        # 오른쪽 라벨 유효성 검사
         if isinstance(r_info, str):
             for item in r_info.split(','):
                 temp = item.split(':')[-1].strip()
@@ -146,11 +142,10 @@ def get_all_hand_labels(file_path, rgb_root, rgb_template, thermal_root, mp_temp
             save = False
             reason = "[RIGHT LABEL NOT STR]"
 
-        # 👈 프레임 폴더 및 멀티모달 이미지 존재 여부 체크
+        # 프레임 폴더 및 멀티모달 이미지 존재 여부 체크
         if save:
             base_dir = os.path.join(action, subject, name)
             rgb_dir = os.path.join(rgb_root, base_dir, "RGB_undistorted", "processed_270_480")
-            # depth_dir = os.path.join(depth_root, base_dir, "Depth_new", "processed_270_480")
             mp_dir = os.path.join(rgb_root, base_dir, "pose_2d_mp_csv")
 
             if os.path.exists(rgb_dir):
@@ -168,13 +163,8 @@ def get_all_hand_labels(file_path, rgb_root, rgb_template, thermal_root, mp_temp
                 if abs(last_frame_idx - l_max) <= 1 and abs(last_frame_idx - r_max) <= 1:
                     for frame_idx in range(len(frames)):
                         rgb_path = os.path.join(rgb_dir, rgb_template.format(frame_idx))
-                        # depth_path = os.path.join(depth_dir, depth_template.format(frame_idx))
                         mp_path = os.path.join(mp_dir, mp_template.format(frame_idx))
 
-                        # if not (os.path.exists(rgb_path) and os.path.exists(mp_path)):
-                        #     save = False
-                        #     reason = f"[MISSING FILE] RGB or Depth or Thermal missing at frame {frame_idx}"
-                        #     break
                 else:
                     save = False
                     reason = f"[FRAME COUNT MISMATCH] last={last_frame_idx}, l_max={l_max}, r_max={r_max}"
@@ -182,12 +172,12 @@ def get_all_hand_labels(file_path, rgb_root, rgb_template, thermal_root, mp_temp
                 save = False
                 reason = f"[MISSING FOLDER] {rgb_dir}"
 
-        # 👈 저장 or 스킵 처리
+        # 저장 or 스킵 처리
         if not save:
             print(f"[SKIPPED:{idx}] {name} - {reason}")
             continue
 
-        # ✅ 저장
+        # 저장
         if subject not in info:
             info[subject] = {}
         if action not in info[subject]:

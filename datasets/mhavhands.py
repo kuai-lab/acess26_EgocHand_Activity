@@ -476,9 +476,9 @@ class MHAVhands(object):
         idx = self.get_dataidx(idx)
         img_path = self.image_names[idx]
         path_info = img_path.split('/')
-        scene = path_info[4]
-        subject = path_info[5]
-        sequence = path_info[6]
+        scene = path_info[2]
+        subject = path_info[3]
+        sequence = path_info[4]
         frame_number = int(path_info[-1].split('.')[0].split('_')[-1])
 
         both_labels = []

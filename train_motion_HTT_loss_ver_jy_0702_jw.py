@@ -11,7 +11,7 @@ from libyana.modelutils import freeze
 from libyana.randomutils import setseeds
 
 from datasets import collate
-from models.htt_motion_contrast_HTT_loss_ver_jw import TemporalNet
+from models.htt_motion_contrast_HTT_loss_ver_jy_0702_jw import TemporalNet
 from netscripts import epochpass_htt
 from netscripts import reloadmodel, get_dataset_rgb_mp 
 from torch.utils.tensorboard import SummaryWriter
@@ -171,8 +171,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser() 
     parser.add_argument('--experiment_tag',default='server_test') 
     parser.add_argument('--dataset_folder',default='../data_MHAV/')  # 바꿔야댐
-    parser.add_argument('--cache_folder',default='./jw/ckpts/')     # 없음
-    parser.add_argument('--resume_path',default='./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth')       # 03/27~
+    parser.add_argument('--cache_folder',default='./jy/ckpts/')     # 없음
+    parser.add_argument('--resume_path',default='./jy/hello3/checkpoint_30.pth')       # 03/27~
 
     #Transformer parameters
     parser.add_argument("--ntokens_pose", type=int, default=16, help="N tokens for P")
