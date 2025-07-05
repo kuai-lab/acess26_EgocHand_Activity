@@ -239,8 +239,8 @@ class TemporalNet(torch.nn.Module):
         flatten_ain_feature=self.concat_to_action_input(flatten_ain_feature) # (B * 128, 512)
         flatten_ain_feature=torch.cat((flatten_ain_feature, flatten_ain_feature_hlabel_txt), dim=1) # (B * 128, 1536)
 
-        ### ======================================================================================= ##
-        ## === Action Transfomer에 pose encoding된 피쳐(pose_token, wrist_token rot_token포함)추가 === ##'걍 둘다 추가안함
+        ## ============================================================================================ ##
+        ## === Action Transfomer에 pose encoding된 피쳐(pose_token, wrist_token rot_token포함)추가 ======== ##'걍 둘다 추가안함
         # import pdb; pdb.set_trace()
         flatten_ain_feature=torch.cat((flatten_ain_feature_olabel, flatten_ain_feature_hlabel_txt), dim=1) #128, 1024
         flatten_ain_feature=self.hlabel_concat_to_action_input(flatten_ain_feature)

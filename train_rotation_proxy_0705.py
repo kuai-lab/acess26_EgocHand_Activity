@@ -10,18 +10,18 @@ from libyana.modelutils import modelio
 from libyana.modelutils import freeze
 from libyana.randomutils import setseeds
 
-from datasets import collate
-from models.htt_motion_contrast_HTT_loss_ver_jw import TemporalNet
+from datasets import collate_gibson
+from models.htt_rotation_proxy_0705 import TemporalNet
 from netscripts import epochpass_htt
-from netscripts import reloadmodel, get_dataset_rgb_mp 
+from netscripts import reloadmodel, get_dataset_0705 
 from torch.utils.tensorboard import SummaryWriter
-from netscripts.get_dataset_rgb_mp import DataLoaderX 
+from netscripts.get_dataset_0705 import DataLoaderX 
 plt.switch_backend("agg")
 print('********')
 print('Lets start')
 
 def collate_fn(seq, extend_queries=[]):
-    return collate.seq_extend_flatten_collate(seq,extend_queries)
+    return collate_gibson.collate_with_rotation_feature(seq,extend_queries)
     
 def main(args):
     setseeds.set_all_seeds(args.manual_seed)
@@ -39,7 +39,7 @@ def main(args):
 
     print("**** Lets train on", args.train_dataset, args.train_split)
 
-    train_dataset, _ = get_dataset_rgb_mp.get_dataset_htt(
+    train_dataset, _ = get_dataset_0705.get_dataset_htt(
         args.train_dataset,
         dataset_folder=args.dataset_folder,
         split=args.train_split, 
@@ -171,8 +171,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser() 
     parser.add_argument('--experiment_tag',default='server_test') 
     parser.add_argument('--dataset_folder',default='../data_MHAV/')  # 바꿔야댐
-    parser.add_argument('--cache_folder',default='./jw/ckpts/')     # 없음
-    parser.add_argument('--resume_path',default='none')       # 03/27~
+    parser.add_argument('--cache_folder',default='./jy/ckpts/')     # 없음
+    parser.add_argument('--resume_path',default='./jy/hello3/checkpoint_30.pth')       # 03/27~
 
     #Transformer parameters
     parser.add_argument("--ntokens_pose", type=int, default=16, help="N tokens for P")

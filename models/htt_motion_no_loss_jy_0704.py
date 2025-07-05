@@ -145,7 +145,9 @@ class TemporalNet(torch.nn.Module):
         self.pose_net.classifier = nn.Identity()
         self.lambda_contrastive = 0.5
         self.obj_classification=ObjClassBranch(num_obj=self.num_objects, feature_dim=transformer_d_model)
-
+        self.pose_concat_to_action_input = torch.nn.Linear(
+            transformer_d_model + 256,  # 기존 action input dim + pose_feat dim
+            transformer_d_model)
 
     def forward(self, batch_flatten, epoch=0, train=True, verbose=False):
 
@@ -166,36 +168,6 @@ class TemporalNet(torch.nn.Module):
         flatten_in_feature, _ =self.meshregnet(flatten_images)        # RGB Encoder=> (960, 512)
         pose_feat, rotation_prior_token = self.pose_net(pose_seq)     # [B, T, D]= [8, 128//16=8, 256] => (pose + rotation) token
         # combined_token = torch.cat([pose_feat, rotation_prior_token], dim=-1)
-        
-        ## ============================Contrastive Loss for rotation token========================== ###
-        # Contrastive Loss for rotation token
-        B_rot = rotation_prior_token.shape[0]
-        B, T, D = pose_feat.shape   # 실제 pose_feat는 (B, num_mactions, 256)
-        F = self.ntokens_pose
-        gt_bidirectional_labels = batch_flatten['bidirectional_label'].cuda()  # [B_total]
-        gt_bidirectional_labels=gt_bidirectional_labels.view(B,T,F)
-        gt_labels_expanded = gt_bidirectional_labels[:, :, 0].reshape(-1)
-        rot_token_flat = rotation_prior_token.view(-1, D)
-        valid_mask = (gt_labels_expanded != -1)
-        assert rot_token_flat.shape[0] == valid_mask.shape[0], f"rot_token_flat={rot_token_flat.shape}, valid_mask={valid_mask.shape}"
-    
-        ## ======================================================================================## 
-        ## ===============================이상한건지 맞는건지 확인중==================================##
-        if valid_mask.sum() > 1:
-            contrastive_loss = self.compute_contrastive_loss(
-                rot_token_flat[valid_mask],
-                gt_labels_expanded[valid_mask])
-        else:
-            contrastive_loss = torch.tensor(0.0, device=rotation_prior_token.device)
-        ## =====================================================================## 
-
-
-        if total_loss is None:
-            total_loss = contrastive_loss
-        else:
-            total_loss += contrastive_loss
-        losses.update({'rotation_prior_contrastive_loss': contrastive_loss})
-        ## ============================================================================ ###
 
         # ======== Egocentric Knowledge Module ========
         batch_seq_pin_feature=flatten_in_feature.contiguous().view(-1,self.ntokens_pose,flatten_in_feature.shape[-1])
@@ -246,15 +218,21 @@ class TemporalNet(torch.nn.Module):
         
         flatten_ain_feature=torch.cat((flatten_pout_feature,flatten_ain_feature_olabel),dim=1) # (B * 128, 512*2=1024) => object랑  concat        
         flatten_ain_feature=self.concat_to_action_input(flatten_ain_feature) # (B * 128, 512)
+
         flatten_ain_feature=torch.cat((flatten_ain_feature, flatten_ain_feature_hlabel_txt), dim=1) # (B * 128, 1536)
+        flatten_ain_feature=self.hlabel_concat_to_action_input(flatten_ain_feature)
 
         ### ======================================================================================= ##
-        ## === Action Transfomer에 pose encoding된 피쳐(pose_token, wrist_token rot_token포함)추가 === ##'걍 둘다 추가안함
-        # import pdb; pdb.set_trace()
-        flatten_ain_feature=torch.cat((flatten_ain_feature_olabel, flatten_ain_feature_hlabel_txt), dim=1) #128, 1024
-        flatten_ain_feature=self.hlabel_concat_to_action_input(flatten_ain_feature)
+        ## === Action Transfomer에 pose encoding된 피쳐(pose_token, wrist_token rot_token포함)추가 === ##
+        num_mactions = self.ntokens_action // self.ntokens_pose
+        pose_feat = pose_feat.view(B, num_mactions, -1)
+        pose_feat_repeated = pose_feat.repeat(1, self.ntokens_action // num_mactions, 1)
+        pose_feat_repeated = pose_feat_repeated.view(flatten_ain_feature.shape[0], -1)
+        flatten_ain_feature=torch.cat((flatten_ain_feature,pose_feat_repeated),dim=1)
+        flatten_ain_feature = self.pose_concat_to_action_input(flatten_ain_feature)
         batch_seq_ain_feature=flatten_ain_feature.contiguous().view(-1,self.ntokens_action,flatten_ain_feature.shape[-1])
-
+        ### ======================================================================================= ##
+        
         # Concat trainable token
         batch_aglobal_tokens = repeat(self.action_token,'() n d -> b n d',b=batch_seq_ain_feature.shape[0])
         batch_seq_ain_feature=torch.cat((batch_aglobal_tokens,batch_seq_ain_feature),dim=1)

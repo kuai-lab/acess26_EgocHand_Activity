@@ -1,0 +1,860 @@
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 14:36:04.980550
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: train
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 15:16:58.329686
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 15:24:24.712998
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 15:28:56.814959
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 15:33:50.316912
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 16:47:44.541343
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 16:51:30.365450
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 16:55:35.608359
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 17:00:23.939866
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 17:04:24.824889
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 18:23:54.397031
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 19:31:50.227309
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 19:46:34.960281
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 19:50:09.044975
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 19:52:52.118747
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 20:19:52.737901
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 20:21:00.054044
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 20:24:32.973135
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 20:36:52.815167
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'
+====== Options ======
+batch_size: 1
+cache_folder: ./jw/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.0
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 45
+experiment_tag: temporal_conv_toy_test
+hidden_dim: 512
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+lr: 3e-05
+lr_decay_gamma: 0.5
+lr_decay_step: 15
+manual_seed: 0
+momentum: 0.9
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+optimizer: adam
+pose_loss: l1
+pyapt_id: None
+resume_path: ./jw/ckpts/0702_htt_motion_contrastive_batch8/checkpoint_3.pth
+scale_factor: 0.0001
+scale_jittering: 0
+snapshot: 1
+spacing: 2
+train_cont: False
+train_dataset: mhavhands
+train_split: test
+trans_factor: 100
+weight_decay: 0
+workers: 0
+=====================
+launched train_motion_HTT_loss_ver_jy.py at 2025-07-04 21:00:56.680626
+=== Git info ====
+b'31b1031'
+commit : b'31b103124f553f61e98fd6edeec4ddf0ba83fc91'

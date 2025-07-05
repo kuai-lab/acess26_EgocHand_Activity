@@ -1,7 +1,6 @@
 import argparse
 from datetime import datetime
-import logging
-# import wandb
+
 from matplotlib import pyplot as plt
 import torch
 
@@ -9,17 +8,23 @@ from libyana.exputils.argutils import save_args
 from libyana.modelutils import freeze
 from libyana.randomutils import setseeds
 
-from datasets import collate_origin
-from models.htt import TemporalNet
+from datasets import collate_gibson
+from models.htt_rotation_proxy_0705 import TemporalNet
 from netscripts import epochpass_htt
-from netscripts import reloadmodel, get_dataset
+from netscripts import reloadmodel, get_dataset_0705
+from config import DATA_ROOT_PATH
+
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 plt.switch_backend("agg")
 print('********')
 print('Lets start')
 
+
 def collate_fn(seq, extend_queries=[]):
-    return collate_origin.seq_extend_flatten_collate(seq,extend_queries)#seq_extend_collate(seq, extend_queries)
+    return collate_gibson.collate_with_rotation_feature(seq,extend_queries)#seq_extend_collate(seq, extend_queries)
+
+
 
 def main(args):
     setseeds.set_all_seeds(args.manual_seed)
@@ -29,13 +34,9 @@ def main(args):
     experiment_tag = args.experiment_tag
     exp_id = f"{args.cache_folder}"+experiment_tag+"/"
     save_args(args, exp_id, "opt") 
-    # wandb.init(
-    # project="Hand",
-    # name=args.experiment_tag,
-    # config=vars(args) )
-
+    
     print("**** Lets eval on", args.val_dataset, args.val_split)
-    val_dataset, _ = get_dataset.get_dataset_htt(
+    val_dataset, _ = get_dataset_0705.get_dataset_htt(
         args.val_dataset,
         dataset_folder=args.dataset_folder,
         split=args.val_split, 
@@ -63,7 +64,7 @@ def main(args):
     #Re-load pretrained weights 
     print('**** Load pretrained-weights from resume_path', args.resume_path)
     model= TemporalNet(dataset_info=dataset_info,
-                is_single_hand=args.train_dataset!="mhavhands",
+                is_single_hand=args.train_dataset!="h2ohands",
                 transformer_num_encoder_layers_action=args.enc_action_layers,
                 transformer_num_encoder_layers_pose=args.enc_pose_layers,
                 transformer_d_model=args.hidden_dim,
@@ -82,6 +83,7 @@ def main(args):
 
     epoch=reloadmodel.reload_model(model,args.resume_path)
     use_multiple_gpu= torch.cuda.device_count() > 1
+    use_multiple_gpu = False
     if use_multiple_gpu:
         assert False, "Not implement- Eval with multiple gpus!"
         #model = torch.nn.DataParallel(model).cuda()
@@ -105,7 +107,7 @@ def main(args):
         use_multiple_gpu=False,
         tensorboard_writer=None,
         aggregate_sequence=True,
-        is_single_hand= args.train_dataset!="mhavhands",
+        is_single_hand= args.train_dataset!="h2ohands",
         dataset_action_info=dataset_info.action_to_idx,
         dataset_object_info=dataset_info.object_to_idx,     
         ntokens=args.ntokens_action,
@@ -118,27 +120,22 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     # Base params
-    parser.add_argument('--experiment_tag',default='test')    
+    parser.add_argument('--experiment_tag',default='proxy_eval')    
     parser.add_argument('--is_demo', action="store_true", help="show demo result")  
 
-    parser.add_argument('--dataset_folder',default='../data_MHAV/')  
+    parser.add_argument('--dataset_folder',default=DATA_ROOT_PATH)
     parser.add_argument('--cache_folder',default='./jy/ckpts/')
-    # parser.add_argument('--resume_path',default='./ws/ckpts/htt_fpha/checkpoint_45.pth')
+    parser.add_argument('--resume_path',default='.')
 
-    parser.add_argument('--resume_path',default='./jy/hello3_default/checkpoint_45.pth')
-    # parser.add_argument('--resume_path',default='./jy/ckpts/linear_concat/checkpoint_2.pth')
-#
     #Transformer parameters
     parser.add_argument("--ntokens_pose", type=int, default=16, help="N tokens for P")
     parser.add_argument("--ntokens_action", type=int, default=128, help="N tokens for A")
     parser.add_argument("--spacing",type=int,default=2, help="Sample space for temporal sequence")
     
     # Dataset params
-    parser.add_argument("--train_dataset",choices=["mhavhands", "fhbhands"],default="mhavhands",)
-    parser.add_argument("--val_dataset", choices=["mhavhands", "fhbhands"], default="mhavhands",) 
-    # parser.add_argument("--val_split", default="test", choices=["test", "train", "val"])
+    parser.add_argument("--train_dataset",choices=["h2ohands", "fhbhands, mhavhands"],default="mhavhands",)
+    parser.add_argument("--val_dataset", choices=["h2ohands", "fhbhands, mhavhands"], default="mhavhands",) 
     parser.add_argument("--val_split", default="test", choices=["test", "train", "val"])
-
     
     
     
@@ -156,8 +153,8 @@ if __name__ == "__main__":
     parser.add_argument("--manual_seed", type=int, default=0)
     parser.add_argument("--batch_size", type=int, default=2, help="Batch size")
     parser.add_argument("--workers", type=int, default=4, help="Number of workers for multiprocessing")
-    parser.add_argument("--epochs", type=int, default=500) # ????
-    # parser.add_argument("--epochs", type=int, default=2)
+    parser.add_argument("--epochs", type=int, default=500)
+   
 
     parser.add_argument(
         "--trans_factor", type=float, default=100, help="Multiplier for translation prediction"

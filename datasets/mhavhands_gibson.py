@@ -1,3 +1,4 @@
+
 from os import path
 import os
 import sys
@@ -8,19 +9,21 @@ import lmdb
 
 import numpy as np
 from PIL import Image, ImageFile
-from datasets import mhavutils_rgb_mp
+from datasets import mhavutils_gibson
 from datasets.queries import BaseQueries,TransQueries, get_trans_queries
-from datasets import mhavutils_rgb_mp
+from datasets import mhavutils_gibson
+from config import DATA_ROOT_PATH
 
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-## 한
+
 class MHAVhands(object):
     def __init__(
         self,
         dataset_folder,
         split,#
+        ntokens_pose,
         ntokens_action,
         spacing,
         is_shifting_window,
@@ -28,11 +31,10 @@ class MHAVhands(object):
     ):
         super().__init__()
 
-
+        self.ntokens_pose = ntokens_pose
         self.ntokens_action=ntokens_action
         self.spacing=spacing
         self.is_shifting_window=is_shifting_window
-    
 
         self.all_queries = [
             BaseQueries.IMAGE,           
@@ -40,6 +42,7 @@ class MHAVhands(object):
 
             TransQueries.JOINTS2D, 
             TransQueries.JOINTSABS25D,
+            TransQueries.CAMINTR,
 
             BaseQueries.JOINTS3D,
             BaseQueries.ACTIONIDX,
@@ -75,23 +78,21 @@ class MHAVhands(object):
         self.split = split
         self.split_type = split_type 
         
+
         self.root = "../data_MHAV"
+        
         self.info_root = os.path.join(self.root, "Subjects_info")
+
         self.reduce_res = True
 
+
+        # # self.split = split
         self.rgb_template = "RGB_undistorted_{}.jpg"
-        self.mp_template = "keypoint_{}.csv"
-        # self.thermal_template = "keypoint_{}.csv"
         print("앙 확인띠", self.root)
         small_rgb = self.root  # 또는 실제 리사이즈 이미지 경로
-        small_depth = self.root
-        small_thermal = self.root
 
         if os.path.exists(small_rgb) and self.reduce_res:
             self.rgb_root = small_rgb
-            self.depth_root = small_depth
-            self.thermal_root = small_thermal
-
             self.reduce_factor = 1 / 4
             print("✅ Using reduced resolution.")
         else:
@@ -102,29 +103,31 @@ class MHAVhands(object):
 
         #Load action labels
         path_action_info = '../data_MHAV/action_info.txt'
-        action_info, action_to_idx = mhavutils_rgb_mp.get_action_infos(path_action_info)
+        action_info, action_to_idx = mhavutils_gibson.get_action_infos(path_action_info)
         self.action_info=action_info
         self.action_to_idx=action_to_idx
         self.num_actions = len(self.action_info.keys())
 
         #Load object labels
         path_object_info = '../data_MHAV/object_tool_id.txt'
-        object_info, object_to_idx = mhavutils_rgb_mp.get_object_infos(path_object_info)
+        object_info, object_to_idx = mhavutils_gibson.get_object_infos(path_object_info)
         self.object_info=object_info
         self.object_to_idx=object_to_idx
         self.num_objects = len(self.object_info.keys())
-        self.bidirectional_labels_array = []
+
 
         # Load hand type labels
         self.num_handtypes = 39
-        self.hand_labels, self.subjects_infos = mhavutils_rgb_mp.get_all_hand_labels('../data_MHAV/annotation_0620_final.xlsx', self.rgb_root, self.rgb_template, self.thermal_root, self.mp_template)
-        # import pdb; pdb.set_trace()
+        self.hand_labels, self.subjects_infos = mhavutils_gibson.get_all_hand_labels('../data_MHAV/annotation_0620_final.xlsx', self.rgb_root, self.rgb_template)
+        # print("self.hand_labels keys:", list(self.hand_labels))  # 현재 hand_labels에 어떤 키들이 있는지 확인
+        # print("self.subjects_labels keys:", list(self.subjects_infos))
         self.mhav_hand_map={-1: 0,  1: 1,  2: 2,  3: 3,  4: 4,  8: 5,  9: 6,  12: 7,  14: 8,  15: 9,  17: 10,  18: 11,  22: 12,  23: 13,  27: 14, 29: 15,  32: 16,  33: 17,  34: 18,  36: 19,  38: 20,  39: 21,  40: 22,  41: 23,  42: 24,  43: 25,  44: 26,  45: 27,  46: 28,  47: 29,  48: 30,  49: 31,  50: 32,  51: 33,  52: 34,  53: 35,  54: 36,  55: 37,  56: 38}
 
         
         for i,(k,v) in enumerate(self.action_info.items()):
             self.action_info[k]["action_idx"]=i
         
+
         # get paired links as neighboured joints
         self.links = [
             (0, 1, 2, 3, 4),
@@ -138,8 +141,11 @@ class MHAVhands(object):
         # Infor for rendering
         self.cam_intr[:2] = self.cam_intr[:2] * self.reduce_factor
         self.image_size = [int(1920 * self.reduce_factor), int(1080 * self.reduce_factor)] 
+
+
         self.env_r=None
                 
+    
     def load_dataset(self):
         if self.split_type == "subjects":
             if self.split == "train":
@@ -150,112 +156,78 @@ class MHAVhands(object):
                 raise ValueError(f"Split {self.split} not in [train|test|val] for split_type subjects")
             self.subjects = subjects
 
-        modal_paths = []  # 멀티모달 경로를 담을 리스트로 변경
-        mask_names = []
-        joints2d = []
-        joints3d = []
-
-        # image_names = []
+        image_names = []
         sample_infos = []
         action_idxs, obj_idxs = [], []
         subject_map = {'Subject_1': 'jl', 'Subject_2': 'kl', 'Subject_3': 'sp', 'Subject_4': 'hg', 'Subject_5': 'pc'}
+        seq_idx_counter = 0  # moved
+
         self.subjects_infos = {
             key: self.subjects_infos[key]
             for key in self.subjects_infos.keys()
             if key in self.subjects
         }
 
-        seq_idx_counter = 0  # moved outside
         for sub in self.subjects:
-            print(f"\n[INFO] Processing subject: {sub}")
-            print("→ self.subjects_infos keys:", list(self.subjects_infos.keys()))
+            # print(f"\n[INFO] Processing subject: {sub}")
+            # print("→ self.subjects_infos keys:", list(self.subjects_infos.keys()))
 
             for name in self.subjects_infos[sub]:
                 subject = name.split('_')[-1].lower()
                 action_name = name.split('_')[0]
                 frame_idx, object = self.subjects_infos[sub][name]
 
-                print(f"  → Action: {action_name}, Subject: {subject}, Frames: {frame_idx}, Objects: {object}")
+                # print(f"  → Action: {action_name}, Subject: {subject}, Frames: {frame_idx}, Objects: {object}")
 
                 for iidx in range(int(frame_idx)):
-                    base_dir = os.path.join("../data_MHAV", action_name, subject, name)
-
-                    rgb_path = os.path.join(base_dir, "RGB_undistorted", "processed_270_480", self.rgb_template.format(iidx))
-                    mp_path = os.path.join(base_dir, "wilor_pose_3d", "processed_270_480", "keypoint", self.mp_template.format(iidx))
-
-                    # CSV가 없을 경우, 0으로 패딩된 좌표를 생성
-                    if not os.path.exists(rgb_path):
-                        continue  # RGB 이미지 자체가 없으면 스킵
-
-                    if os.path.exists(mp_path):
-                        final_mp_path = mp_path
-                    else:
-                        # 빈 CSV 파일 생성 (42 x 3 모두 0)
-                        os.makedirs(os.path.dirname(mp_path), exist_ok=True)
-                        with open(mp_path, 'w') as f:
-                            f.write('x,y,z\n')
-                            for _ in range(42):
-                                f.write('0,0,0\n')
-                        final_mp_path = mp_path
-
-                    modal_paths.append({
-                        "rgb": rgb_path,
-                        "mp": final_mp_path,
-                    })
+                    # relative_img_path = os.path.join(
+                    #     self.root , action_name, subject, name,
+                    #     "RGB_undistorted", "processed_270_480",
+                    #     self.rgb_template.format(iidx)
+                    # )
+                    relative_img_path = os.path.join(
+                        "../data_MHAV", action_name, subject, name,
+                        "RGB_undistorted", "processed_270_480",
+                        self.rgb_template.format(iidx)
+                    )
+                    image_names.append(relative_img_path)
+                    
                     sample_infos.append({
                         "subject": subject,
                         "action_name": action_name,
                         "frame_idx": iidx,
                         "seq_idx" : seq_idx_counter,
+                        "detail_action_name": name
+                    
                     })
+
                     action_idx = self.action_info[action_name]["action_idx"]
                     action_idxs.append(action_idx)
 
                     obj_idx = list(map(int, object.split(',')))
                     obj_idxs.append(obj_idx)
 
-                    
-
-                    # === bidirectional label 추가 ===
-                    # assemble, screw => 0 / unassemble, unscrew => 1 / 기타 => -1
-                    if action_name in ["assemble", "screw"]:
-                        bidir_label = 0
-                    elif action_name in ["unassemble", "unscrew"]:
-                        bidir_label = 1
-                    else:
-                        bidir_label = -1
-                    self.bidirectional_labels_array.append(bidir_label)
-
-                seq_idx_counter += 1
+                seq_idx_counter += 1  # ✅ sequence 단위 증가
 
         annotations = {
-            "modal_paths" : modal_paths,        # for Multi-Modal
+            "image_names": image_names,
             "sample_infos": sample_infos,
             "action_idxs": action_idxs,
             "seq_idx" : seq_idx_counter,
             "video_lens": self.subjects_infos,
-            "object_infos": obj_idxs,
-            "bidirectional_label": self.bidirectional_labels_array  # 👈 여기!(06/21)
-
+            "object_infos": obj_idxs
         }
-        print("\n[DEBUG] Final annotation info:")
-        # print(f"→ Total images: {len(image_names)}")
-        print(f"→ Total sample_infos: {len(sample_infos)}")
-        print(f"→ Total action_idxs: {len(action_idxs)}")
-        print(f"→ Total obj_idxs: {len(obj_idxs)}")
+
 
         # Store to class
-        self.modal_paths = annotations["modal_paths"]  # image_names → modal_paths
-        print(f"→ modal_paths: {len(self.modal_paths)}개 로드됨")
-
-        # self.image_names = annotations["image_names"]
+        self.image_names = annotations["image_names"]
         self.sample_infos = annotations["sample_infos"]
         self.action_idxs = torch.tensor(annotations["action_idxs"], dtype=torch.long)
         self.video_lens = annotations["video_lens"]
         self.obj_idxs = annotations["object_infos"]
 
         # Sliding window mapping
-        window_starts, fulls = mhavutils_rgb_mp.get_seq_map(
+        window_starts, fulls = mhavutils_gibson.get_seq_map(
             sample_infos=self.sample_infos,
             video_lens=self.video_lens,
             ntokens_action=self.ntokens_action,
@@ -264,10 +236,9 @@ class MHAVhands(object):
         )
         self.window_starts = window_starts
         self.fulls = fulls
-        self.bidirectional_labels_array = torch.tensor(self.bidirectional_labels_array, dtype=torch.long)
 
-        print(f"\n[DEBUG] Sliding windows: {len(window_starts)} generated")
-        print("→ Example start indices:", window_starts[:10])
+        # print(f"\n[DEBUG] Sliding windows: {len(window_starts)} generated")
+        # print("→ Example start indices:", window_starts[:10])
 
     def get_start_frame_idx(self, idx):
         idx=min(idx,len(self.window_starts)-1)
@@ -278,63 +249,26 @@ class MHAVhands(object):
         idx=min(idx,len(self.fulls)-1)
         return self.fulls[idx]
 
-    # def open_seq_lmdb(self,idx):
-    #     return self.get_image(idx)
-
     def open_seq_lmdb(self,idx):
-        return self.get_modal_images(idx)
+        return self.get_image(idx)
 
-    
-    # def get_image(self, idx, txn=None):
-    #     idx = self.get_dataidx(idx)
-    #     img_path = self.image_names[idx]
+    def get_image(self, idx, txn=None):
+        idx = self.get_dataidx(idx)
+        img_path = self.image_names[idx]
         
-    #     img_path = os.path.join(self.rgb_root, img_path)
-    #     img = Image.open(img_path).convert("RGB")
-    #     return img
-
-    def get_bidirection_label(self, idx):
-        idx = self.get_dataidx(idx)
-        return self.bidirectional_labels_array[idx]
-
-
-    # multi modal(+depth, thermal)
-    def get_modal_images(self, idx, txn = None):
-        idx = self.get_dataidx(idx)
-        paths = self.modal_paths[idx]
-
-        rgb = Image.open(os.path.join(self.rgb_root, paths["rgb"])).convert("RGB")
-        # depth = Image.open(os.path.join(self.depth_root, paths["depth"])).convert("RGB")
-        mp = os.path.join(self.thermal_root, paths["mp"])
-        # print(f"[DEBUG] Thermal path: {thermal_path}")
-        return rgb, mp
-
-    def get_mask(self, idx, txn):
-        idx = self.get_dataidx(idx)
-        img_path = self.mask_names[idx]
-        if self.split=='train':
-            buf=txn.get(img_path.encode('ascii'))
-            img_flat=np.frombuffer(buf,dtype=np.uint8)
-            img = img_flat.reshape(self.image_size[1],self.image_size[0],3).copy()
-            img = Image.fromarray(img.astype(np.uint8)).convert("RGB")
- 
-        else:
-            img_path = os.path.join(self.root, img_path)
-            img = Image.open(img_path).convert("RGB")
-        return img 
+        img_path = os.path.join(self.rgb_root, img_path)
+        img = Image.open(img_path).convert("RGB")
+        return img
+    
 
     def get_hand_label(self, idx):  # hand type id 
         idx = self.get_dataidx(idx)
-        img_path = self.modal_paths[idx]["rgb"]
+        img_path = self.image_names[idx]
         path_info = img_path.split('/')
-        # import pdb;pdb.set_trace()
-        ## ----- Tlqkf ----- ##
         scene = path_info[2]
         subject = path_info[3]
         sequence = path_info[4]
-        # print("subject:", subject)
-        ## ----- Tlqkf ----- ##
-
+        # import pdb;pdb.set_trace()
         frame_number = int(path_info[-1].split('.')[0].split('_')[-1])
 
         both_labels = []
@@ -419,7 +353,6 @@ class MHAVhands(object):
         return both_labels
 
 
-
     def get_camintr(self, idx):
         idx = self.get_dataidx(idx)
         camintr = self.cam_intr
@@ -457,19 +390,29 @@ class MHAVhands(object):
 
     def __len__(self):
         return len(self.window_starts)
-    def get_modal_seq_keypoints(self, idx):
-        indices = [self.get_dataidx(idx + i * self.spacing) for i in range(self.ntokens_action)]
-        mp_paths = [self.modal_paths[i]["mp"] for i in indices]
-        pose_sequence = []
 
-        for mp_path in mp_paths:
-            if os.path.exists(mp_path):
-                keypoints = np.loadtxt(mp_path, delimiter=",", skiprows=1)
-                if keypoints.shape[0] != 42:
-                    keypoints = np.pad(keypoints, ((0, 42 - keypoints.shape[0]), (0, 0)), mode="constant")
-            else:
-                keypoints = np.zeros((42, 3), dtype=np.float32)
-            pose_sequence.append(torch.tensor(keypoints, dtype=torch.float32))  # [42, 3]
 
-        # [T, J, C] → T = ntokens_action
-        return torch.stack(pose_sequence, dim=0)
+    def __getitem__(self, idx):
+        idx = self.get_dataidx(idx)
+
+        sample = {}
+
+        # === 기본적으로 필요한 것들 ===
+        img = self.get_image(idx)
+        action_idx = self.get_action_idxs(idx)
+        obj_idx = self.get_obj_idxs(idx)
+
+        # === 추가: Camera Intrinsics ===
+        camintr = torch.tensor(self.cam_intr, dtype=torch.float32).clone()
+
+        # === sample 딕셔너리에 다 넣기 ===
+        sample[TransQueries.IMAGE] = img
+        sample[TransQueries.ACTIONIDX] = action_idx
+        sample[TransQueries.OBJIDX] = obj_idx
+        sample[TransQueries.CAMINTR] = torch.tensor(self.cam_intr, dtype=torch.float32).clone()
+
+
+        # 필요하면 joints2d, jointsabs25d 등도 여기에 추가 가능
+    
+
+        return sample

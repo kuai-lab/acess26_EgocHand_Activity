@@ -3,11 +3,25 @@ import torch.nn.functional as torch_f
 import torch.nn.functional as F
 import torch.nn as nn
 from einops import repeat
+import numpy as np
+from scipy.spatial.transform import Rotation as ScipyRotation
+
+import scipy.ndimage
+import sys
+sys.path.insert(0, '')
+import numpy as np
+import torch
+import torch.nn as nn
+from thop import profile
+from fvcore.nn.flop_count import flop_count
+from tqdm import tqdm
+import time
 
 from models import resnet
 from models.transformer import Transformer_Encoder, PositionalEncoding
 from models.actionbranch import ActionClassificationBranch
 from models.handtypebranch import HandTypeClassificationBranch
+from models.objclassbranch import ObjClassBranch
 from models.utils import  To25DBranch,compute_hand_loss,loss_str2func
 from models.mlp import MultiLayerPerceptron
 from datasets.queries import BaseQueries, TransQueries 
@@ -45,22 +59,21 @@ class TemporalNet(torch.nn.Module):
                         transformer_num_encoder_layers_action,
                         transformer_num_encoder_layers_pose,
                         transformer_normalize_before=True,
+
                         num_classes =19 ,
                         lambda_action_loss=None,
                         lambda_hand_2d=None,
                         lambda_hand_z=None,
-                        ntokens_pose=1,
-                        ntokens_action=120,
+
+                        ntokens_pose=16,
+                        ntokens_action=128,
+
                         embedding_dim_final=256,
                         dataset_info=None,
                         trans_factor=100,
                         scale_factor=0.0001,
                         pose_loss='l2',
-                        dim_grasping_feature=128,
-                        use_3d_pose=True,use_2d_pose=False, dropout=0, microaction_overlap=0.0, # [0.0, 0.99)
-                        trajectory_atten_dim_per_head=4, trajectory_tcn_kernel_size=3, trajectory_tcn_stride=[1,2,2], trajectory_tcn_dilations=[1,2],
-                        use_global_wrist_reference=True, include_orientation_in_global_wrist_ref=True, use_both_wrists=True, separate_hands=True,
-                        tf_heads=8, tf_layers=2,MIB_block=True):
+                        dim_grasping_feature=128):
 
         super().__init__()
         
@@ -98,9 +111,10 @@ class TemporalNet(torch.nn.Module):
                                 normalize_before=transformer_normalize_before)
                                     
         # Object classification
+        self.num_actions=dataset_info.num_actions
         self.num_objects=63
         self.image_to_olabel_embed=torch.nn.Linear(transformer_d_model,transformer_d_model)
-        self.obj_classification=ActionClassificationBranch(num_actions=self.num_objects, action_feature_dim=transformer_d_model)
+        self.obj_classification=ObjClassBranch(num_obj=self.num_objects, feature_dim=transformer_d_model)
         
         # Feature to Action
         self.hand_pose3d_to_action_input=torch.nn.Linear(self.num_joints*2,transformer_d_model)
@@ -108,7 +122,6 @@ class TemporalNet(torch.nn.Module):
 
         # Egocentric Action Module (Global Transformer)
         self.concat_to_action_input=torch.nn.Linear(transformer_d_model*2 ,transformer_d_model)
-        self.num_actions=dataset_info.num_actions
         self.action_token=torch.nn.Parameter(torch.randn(1,1,transformer_d_model))
         
         self.transformer_action=Transformer_Encoder(d_model=transformer_d_model, 
@@ -132,23 +145,18 @@ class TemporalNet(torch.nn.Module):
         self.hlabel_concat_to_action_input=torch.nn.Linear(transformer_d_model*2, transformer_d_model)
         self.dataset_name = dataset_info.name
 
-        # TrjaectoryEncoder~MultimodalTokenizer 포함되어 있음(hf_pose.py)
-        self.pose_net = HF_Pose(self.ntokens_pose, self.num_joints, num_classes,  
-                 embedding_dim_final, use_2d_pose, dropout, 0.0, # microaction_overlap=0,
-                 trajectory_atten_dim_per_head, trajectory_tcn_kernel_size, trajectory_tcn_stride, trajectory_tcn_dilations,
-                 use_global_wrist_reference, include_orientation_in_global_wrist_ref, use_both_wrists, separate_hands,
-                 tf_heads, tf_layers)
+        # rotation_encoder instead of pose_net (pose token 안쓸거라)
+        self.rotation_encoder = torch.nn.Linear(1, transformer_d_model)
+        # self.final_feature_fusion_layer=torch.nn.Linear(
+        #     transformer_d_model+128, transformer_d_model
+        # )
 
         # Disable the transformer and classifier in the pose_net. Only microaction encoding will be used.
-        self.pose_net.pose_tf = nn.Identity()
-        self.pose_net.classifier = nn.Identity()
         self.lambda_contrastive = 0.5
 
 
     def forward(self, batch_flatten, epoch=0, train=True, verbose=False):
-        # import pdb;pdb.set_trace()
         flatten_images = batch_flatten["rgb_image"].cuda()          # ([8, 3, 128, 270, 480])
-        # import pdb;pdb.set_trace()                                                                    
         # flatten_images: [B, C, T, H, W]
         B, C, n_token_action, H, W = flatten_images.shape
         flatten_images = flatten_images.reshape(B*n_token_action, C, H, W)              # [B*T, C, H, W] 
@@ -162,31 +170,40 @@ class TemporalNet(torch.nn.Module):
 
         # ======== Feature Extraction ========
         flatten_in_feature, _ =self.meshregnet(flatten_images)        # RGB Encoder=> (960, 512)
-        pose_feat, rotation_prior_token = self.pose_net(pose_seq)     # [B, T, D]= [8, 128//16=8, 256] => (pose + rotation) token
+        # import pdb;pdb.set_trace()  
+        rotation_prior_token=self.compute_rotation_token(
+            pose_seq, sigma=3
+        ) #window_size 원래 microaction window size -> 128 (action_seq_len)
+        # print(rotation_prior_token, rotation_prior_token.shape)
+        rotation_prior_token=rotation_prior_token.cuda()
+        
+        # pose_feat, rotation_prior_token = self.pose_net(pose_seq)     # [B, T, D]= [8, 128//16=8, 256] => (pose + rotation) token
+        # pose_feat 안씀 + 굳이 mirco action token 단위로 만들 필요x
+        rotation_prior_token=self.rotation_encoder(rotation_prior_token)
+        
         # combined_token = torch.cat([pose_feat, rotation_prior_token], dim=-1)
         
         ## ============================Contrastive Loss for rotation token========================== ###
         # Contrastive Loss for rotation token
-        B_rot = rotation_prior_token.shape[0]
-        B, T, D = pose_feat.shape   # 실제 pose_feat는 (B, num_mactions, 256)
-        F = 16
-        gt_bidirectional_labels = batch_flatten['bidirectional_label'].cuda()  # [B_total]
-        gt_bidirectional_labels=gt_bidirectional_labels.view(B,T,F)
-        gt_labels_expanded = gt_bidirectional_labels[:, :, 0].reshape(-1)
-        rot_token_flat = rotation_prior_token.view(-1, D)
-        valid_mask = (gt_labels_expanded != -1)
-        assert rot_token_flat.shape[0] == valid_mask.shape[0], f"rot_token_flat={rot_token_flat.shape}, valid_mask={valid_mask.shape}"
-        if valid_mask.sum() > 1:
-            contrastive_loss = self.compute_contrastive_loss(
-                rot_token_flat[valid_mask],
-                gt_labels_expanded[valid_mask])
-        else:
-            contrastive_loss = torch.tensor(0.0, device=rotation_prior_token.device)
-        if total_loss is None:
-            total_loss = contrastive_loss
-        else:
-            total_loss += contrastive_loss
-        losses.update({'rotation_prior_contrastive_loss': contrastive_loss})
+        # B, T, D = rotation_prior_token.shape   # 실제 pose_feat는 (B, num_mactions, 256)
+        # F = 16
+        # gt_bidirectional_labels = batch_flatten['bidirectional_label'].cuda()  # [B_total]
+        # gt_bidirectional_labels=gt_bidirectional_labels.view(B,T,F)
+        # gt_labels_expanded = gt_bidirectional_labels[:, :, 0].reshape(-1)
+        # rot_token_flat = rotation_prior_token.view(-1, D)
+        # valid_mask = (gt_labels_expanded != -1)
+        # assert rot_token_flat.shape[0] == valid_mask.shape[0], f"rot_token_flat={rot_token_flat.shape}, valid_mask={valid_mask.shape}"
+        # if valid_mask.sum() > 1:
+        #     contrastive_loss = self.compute_contrastive_loss(
+        #         rot_token_flat[valid_mask],
+        #         gt_labels_expanded[valid_mask])
+        # else:
+        #     contrastive_loss = torch.tensor(0.0, device=rotation_prior_token.device)
+        # if total_loss is None:
+        #     total_loss = contrastive_loss
+        # else:
+        #     total_loss += contrastive_loss
+        # losses.update({'rotation_prior_contrastive_loss': contrastive_loss})
         ## ============================================================================ ###
 
         # ======== Egocentric Knowledge Module ========
@@ -232,7 +249,6 @@ class TemporalNet(torch.nn.Module):
         losses.update(hlabel_losses)
     
         # ======== Egocentric Action Module ========
-        # import pdb;pdb.set_trace()
         flatten_ain_feature_olabel=self.olabel_to_action_input(olabel_results["obj_reg_possibilities"]) # flatten_ain_feature_olabel shape : (B * 128, 512)
         hand_pred_label_features = torch.stack([self.hlabel_features[int(value)] for value in hlabel_results['hand_pred_labels']])
         flatten_ain_feature_hlabel_txt=torch.nn.functional.normalize(hand_pred_label_features).to(torch.cuda.current_device())
@@ -242,20 +258,22 @@ class TemporalNet(torch.nn.Module):
         flatten_ain_feature=torch.cat((flatten_ain_feature, flatten_ain_feature_hlabel_txt), dim=1) # (B * 128, 1536)
 
         ### ======================================================================================= ##
-        ## === Action Transfomer에 pose encoding된 피쳐(pose_token, wrist_token rot_token포함)추가 === ##'걍 둘다 추가안함
+        ## === Action Transfomer에 pose encoding된 피쳐(pose_token, wrist_token rot_token포함) 추가 === ##'걍 둘다 추가안함
         # import pdb; pdb.set_trace()
         flatten_ain_feature=torch.cat((flatten_ain_feature_olabel, flatten_ain_feature_hlabel_txt), dim=1) #128, 1024
         flatten_ain_feature=self.hlabel_concat_to_action_input(flatten_ain_feature)
+        flatten_ain_feature=torch.cat((flatten_ain_feature, ))
         batch_seq_ain_feature=flatten_ain_feature.contiguous().view(-1,self.ntokens_action,flatten_ain_feature.shape[-1])
 
         # Concat trainable token
         batch_aglobal_tokens = repeat(self.action_token,'() n d -> b n d',b=batch_seq_ain_feature.shape[0])
         batch_seq_ain_feature=torch.cat((batch_aglobal_tokens,batch_seq_ain_feature),dim=1)
+        batch_seq_ain_feature=torch.cat((rotation_prior_token, batch_seq_ain_feature), dim=1)
         batch_seq_ain_pe=self.transformer_pe(batch_seq_ain_feature)
  
         batch_seq_weights_action=batch_flatten['not_padding'].cuda().float().view(-1,self.ntokens_action)
         batch_seq_amasks_frames=(1-batch_seq_weights_action).bool()
-        batch_seq_amasks_global=torch.zeros_like(batch_seq_amasks_frames[:,:1]).bool() 
+        batch_seq_amasks_global=torch.zeros_like(batch_seq_amasks_frames[:,:2]).bool() 
         batch_seq_amasks=torch.cat((batch_seq_amasks_global,batch_seq_amasks_frames),dim=1)        
          
         batch_seq_aout_feature,_=self.transformer_action(src=batch_seq_ain_feature, src_pos=batch_seq_ain_pe,
@@ -275,7 +293,53 @@ class TemporalNet(torch.nn.Module):
     
     ### ======================= Loss ============================= ###
 
-    ###----------------------------------------------------------------\
+    @staticmethod
+    def compute_rotation_token(pose_seq, sigma=3):
+        """
+        pose_seq: Tensor of shape (B, 3, 128, 21, 2)
+        Returns: Tensor of shape (B, 1) — rotation angle (accumulated) per sequence
+        """
+        B, C, T, V, M = pose_seq.shape
+        assert M >= 1, "Expected at least one hand in last dim"
+
+        # 오른손만 선택, (B, T, V, C)
+        pose_seq = pose_seq.permute(0, 2, 3, 1, 4)[..., 0]  # (B, T, V, C)
+
+        results = []
+        for b in range(B):
+            kp_seq = pose_seq[b].cpu().numpy()  # (T, V, 3)
+
+            reference_grasp_points = None
+            reference_palm_to_finger_vector = None
+            signed_accum_angle = 0.0
+
+            for i in range(kp_seq.shape[0]):
+                kp = kp_seq[i]
+                palm_center = (kp[0] + kp[5] + kp[17]) / 3
+                finger_center = (kp[4] + kp[8] + kp[12]) / 3
+                palm_to_finger_vector = finger_center - palm_center
+                current_grasp_points = np.array([kp[4], kp[8], kp[12]])
+
+                if reference_grasp_points is None:
+                    reference_grasp_points = current_grasp_points.copy()
+                    reference_palm_to_finger_vector = palm_to_finger_vector.copy()
+                    continue
+
+                delta_rot, _ = ScipyRotation.align_vectors(current_grasp_points, reference_grasp_points)
+                rotvec = delta_rot.as_rotvec()
+                angle_inc = np.linalg.norm(rotvec)
+
+                sign = 0
+                if angle_inc > 1e-6:
+                    sign = np.sign(np.dot(rotvec, reference_palm_to_finger_vector))
+
+                signed_delta = np.rad2deg(angle_inc) * sign
+                signed_accum_angle += signed_delta
+
+            results.append(torch.tensor([signed_accum_angle], dtype=torch.float32).unsqueeze(0))  # (1, 1)
+
+        return torch.cat(results, dim=0).unsqueeze(1)  # (B, 1, 1)
+
     def compute_contrastive_loss(self, features, labels, temperature=0.07):
         # features: [N, D]
         # labels: [N]

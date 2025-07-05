@@ -151,7 +151,7 @@ def get_all_hand_labels(file_path, rgb_root, rgb_template, thermal_root, mp_temp
             base_dir = os.path.join(action, subject, name)
             rgb_dir = os.path.join(rgb_root, base_dir, "RGB_undistorted", "processed_270_480")
             # depth_dir = os.path.join(depth_root, base_dir, "Depth_new", "processed_270_480")
-            mp_dir = os.path.join(rgb_root, base_dir, "wilor_pose_3d", "keypoint")
+            mp_dir = os.path.join(rgb_root, base_dir, "wilor_pose_3d",  "processed_270_480", "keypoint")
 
             if os.path.exists(rgb_dir):
                 frames = sorted(os.listdir(rgb_dir))

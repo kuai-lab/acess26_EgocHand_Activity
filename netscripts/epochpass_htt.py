@@ -223,14 +223,14 @@ def epoch_pass(
         #     save_dict['objlabel_'+k]=v
         
         
-        if is_single_hand:
-            print("hand- MEPE (camera space, mm)/AUC(0-80mm): {:.2f}/{:.3f}".format(save_dict["joints3d_epe_mean"]*1000,save_dict["joints3d_auc"]))
-            print("hand- MEPE-RA (camera space, mm)/AUC(0-50mm): {:.2f}/{:.3f}".format(save_dict["joints3d_cent_epe_mean"]*1000,save_dict["joints3d_cent_auc"]))
-        else:
-            print("Our Datasset(MHAV) for Action recall rate, in main text we refer to result evaluated by the H2O Comopetition Codalab.")
-            # for k in ["left","right"]:
-            #     print(k+"hand- MEPE (camera space, mm)/AUC(0-80mm): {:.2f}/{:.3f}".format(save_dict[f"{k}_joints3d_epe_mean"]*1000,save_dict[f"{k}_joints3d_auc"]))
-            #     print(k+"hand- MEPE-RA (camera space, mm)/AUC(0-50mm): {:.2f}/{:.3f}".format(save_dict[f"{k}_joints3d_cent_epe_mean"]*1000,save_dict[f"{k}_joints3d_cent_auc"]))
+        # if is_single_hand:
+        #     print("hand- MEPE (camera space, mm)/AUC(0-80mm): {:.2f}/{:.3f}".format(save_dict["joints3d_epe_mean"]*1000,save_dict["joints3d_auc"]))
+        #     print("hand- MEPE-RA (camera space, mm)/AUC(0-50mm): {:.2f}/{:.3f}".format(save_dict["joints3d_cent_epe_mean"]*1000,save_dict["joints3d_cent_auc"]))
+        # else:
+        #     print("Our Datasset(MHAV) for Action recall rate, in main text we refer to result evaluated by the H2O Comopetition Codalab.")
+        #     # for k in ["left","right"]:
+        #     #     print(k+"hand- MEPE (camera space, mm)/AUC(0-80mm): {:.2f}/{:.3f}".format(save_dict[f"{k}_joints3d_epe_mean"]*1000,save_dict[f"{k}_joints3d_auc"]))
+        #     #     print(k+"hand- MEPE-RA (camera space, mm)/AUC(0-50mm): {:.2f}/{:.3f}".format(save_dict[f"{k}_joints3d_cent_epe_mean"]*1000,save_dict[f"{k}_joints3d_cent_auc"]))
 
         print("action recall-rate on video, TP: {:d}, Total: {:d}, recall rate {:.2f}".format(int(save_dict["action_video_seq_tp"]),int(save_dict["action_video_seq_total"]),\
                         save_dict["action_video_seq_recall_rate_mean"]*100))
