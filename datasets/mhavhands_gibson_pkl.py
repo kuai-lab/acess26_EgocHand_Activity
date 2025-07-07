@@ -267,6 +267,7 @@ class MHAVhands(object):
     def get_right_hand_center(self, idx):
         idx = self.get_dataidx(idx)
         img_path = self.image_names[idx]
+        path_info = img_path.split('/')
 
         # === 1. 시퀀스명과 프레임 번호 추출 ===
         path_parts = img_path.split('/')
@@ -274,7 +275,7 @@ class MHAVhands(object):
         subject = path_parts[3]
         sequence = path_parts[4]
         frame_name = path_parts[-1]  # e.g., RGB_undistorted_172.jpg
-        frame_index = int(frame_name.split('_')[-1].split('.')[0])  # → 172
+        frame_index = int(path_info[-1].split('.')[0].split('_')[-1])
 
         # === 2. pkl 경로 구성 ===
         pkl_path = f"../data_MHAV/bbox_MHAV/{sequence}.pkl"
