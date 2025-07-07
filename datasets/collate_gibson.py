@@ -97,16 +97,19 @@ def collate_with_rotation_feature(batch, extend_queries=None):
     # 1. 시퀀스 샘플 리스트와 회전 특징 텐서를 분리합니다.
     list_of_sample_sequences = [item[0] for item in batch]
     rotation_features = [item[1] for item in batch]
-    
+    direction_features = [item[2] for item in batch]
+
     # 2. 기존 함수를 호출하여 시퀀스 샘플들을 처리합니다.
     collated_samples = seq_extend_flatten_collate(list_of_sample_sequences, extend_queries)
 
     # 3. 분리해 둔 회전 특징들을 하나의 배치 텐서로 합칩니다.
     collated_rotation_tensor = torch.stack(rotation_features, dim=0)
     
+    collated_direction_tensor = torch.stack(direction_features, dim=0)
+
     # 4. 최종 배치 딕셔너리에 회전 특징 텐서를 추가합니다.
     collated_samples[TransQueries.ROTATION_FEATURE] = collated_rotation_tensor
-    
+    collated_samples[TransQueries.DIRECTION_FEATURE] = collated_direction_tensor
     # print(collated_samples)
 
     return collated_samples

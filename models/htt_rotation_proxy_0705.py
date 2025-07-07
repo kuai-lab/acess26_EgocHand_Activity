@@ -201,7 +201,7 @@ class TemporalNet(torch.nn.Module):
         losses.update(hlabel_losses)
 
         # Rotation contrastive
-        rotation_embedding = self.rotation_encoder(rotation_features)
+        rotation_embedding = self.rotation_encoder(rotation_features)   # mlp
 
         # ======== Egocentric Action Module ========
         flatten_ain_feature_olabel=self.olabel_to_action_input(olabel_results["obj_reg_possibilities"])
@@ -247,15 +247,15 @@ class TemporalNet(torch.nn.Module):
         losses.update(action_losses)
 
         # --- ProxyNCA Loss 계산 ---
-        # if train:
-        #     # ✅ 게이트가 적용된 `gated_rotation_embedding`을 사용하도록 수정
-        #     embeddings = torch_f.normalize(gated_rotation_embedding, p=2, dim=1)
-        #     labels = action_results["action_gt_labels"]
+        if train:
+            # ✅ 게이트가 적용된 `gated_rotation_embedding`을 사용하도록 수정
+            embeddings = torch_f.normalize(gated_rotation_embedding, p=2, dim=1)
+            labels = action_results["action_gt_labels"]
 
-        #     contrastive_loss = self._compute_proxynca_loss(embeddings, labels)
+            contrastive_loss = self._compute_proxynca_loss(embeddings, labels)
 
-        #     total_loss += self.lambda_contrastive_loss * contrastive_loss
-        #     losses["Proxynce_loss"] = contrastive_loss.detach()
+            total_loss += self.lambda_contrastive_loss * contrastive_loss
+            losses["Proxynce_loss"] = contrastive_loss.detach()
 
         return total_loss, results, losses
 
