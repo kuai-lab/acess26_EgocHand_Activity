@@ -8,7 +8,8 @@ from torch.utils.data import Dataset
 from torchvision.transforms import functional as func_transforms
 from pathlib import Path
 import torch
-import pickle
+# import pickle
+import pandas as pd
 from libyana.transformutils import colortrans, handutils
 from datasets.queries import BaseQueries, TransQueries, one_query_in 
 # from config import DATA_ROOT_PATH
@@ -205,11 +206,7 @@ class SeqSet(Dataset):
         else:
             sample["hand_label"] = hand_label
 
-        ## ================================================================ ##     
-        # Get Hand BBOX center from frankmocap (07/07)
-        center_xy = self.pose_dataset.get_right_hand_center(idx)
-        sample["center_xy"] = center_xy
-        ## ================================================================ ##     
+
 
         #Get meta sample info
         sample["sample_info"]=self.pose_dataset.get_sample_info(idx)
@@ -259,6 +256,15 @@ class SeqSet(Dataset):
             rotation_tensor = torch.zeros(target_len, dtype=torch.float32)
             print(f"⚠️ NPY 파일을 찾을 수 없음: {NPY_PATH}")
 
+        #============ wrist keypoint csv 받아오기 =============#
+        bbox_filenames =  "keypoint_{}.csv"
+        iidx = sample_info["frame_idx"] 
+       
+        BBOX_PATH = os.path.join(
+                        "../data_MHAV", action_category, subject,  sequence_folder,
+                         "wilor_pose_2d", "processed_270_480","keypoint_2d", bbox_filenames.format(iidx)
+                    )
+        center_xy = pd.read_csv(BBOX_PATH).iloc[0].to_numpy().astype(np.float32)
 
 
         sample["dist2query"] = 0
@@ -285,4 +291,4 @@ class SeqSet(Dataset):
             if fut_idx!=cur_idx:
                 cur_idx=fut_idx
 
-        return samples, rotation_tensor , center_xy
+        return samples, rotation_tensor, center_xy

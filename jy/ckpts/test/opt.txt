@@ -7058,3 +7058,183 @@ launched eval_rgb_pose.py at 2025-07-07 18:31:23.434509
 === Git info ====
 b'd322fe8'
 commit : b'd322fe8d1c3cf74d8ad3aa1013692b29d3db2d95'
+====== Options ======
+batch_size: 4
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.1
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 500
+experiment_tag: test
+hidden_dim: 512
+is_demo: False
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+manual_seed: 0
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+pose_loss: l1
+resume_path: /data/jyseo/functional_hand_type/jw/ckpts/htt_motion_proxy/checkpoint_7.pth
+scale_factor: 0.0001
+scale_jittering: 0
+spacing: 2
+train_dataset: mhavhands
+trans_factor: 100
+val_dataset: mhavhands
+val_split: test
+workers: 14
+=====================
+launched eval_rgb_pose.py at 2025-07-07 19:40:55.357399
+=== Git info ====
+b'1591a79'
+commit : b'1591a790a1ece91a447158166932ad181edacbcb'
+====== Options ======
+batch_size: 4
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.1
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 500
+experiment_tag: test
+hidden_dim: 512
+is_demo: False
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+manual_seed: 0
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+pose_loss: l1
+resume_path: /data/jyseo/functional_hand_type/jw/ckpts/htt_motion_proxy/checkpoint_8.pth
+scale_factor: 0.0001
+scale_jittering: 0
+spacing: 2
+train_dataset: mhavhands
+trans_factor: 100
+val_dataset: mhavhands
+val_split: test
+workers: 14
+=====================
+launched eval_rgb_pose.py at 2025-07-07 19:56:46.464370
+=== Git info ====
+b'1591a79'
+commit : b'1591a790a1ece91a447158166932ad181edacbcb'
+====== Options ======
+batch_size: 4
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.1
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 500
+experiment_tag: test
+hidden_dim: 512
+is_demo: False
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+manual_seed: 0
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+pose_loss: l1
+resume_path: /data/jyseo/functional_hand_type/jw/ckpts/htt_motion_proxy/checkpoint_9.pth
+scale_factor: 0.0001
+scale_jittering: 0
+spacing: 2
+train_dataset: mhavhands
+trans_factor: 100
+val_dataset: mhavhands
+val_split: test
+workers: 14
+=====================
+launched eval_rgb_pose.py at 2025-07-07 20:14:04.269921
+=== Git info ====
+b'1591a79'
+commit : b'1591a790a1ece91a447158166932ad181edacbcb'
+====== Options ======
+batch_size: 4
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.1
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 500
+experiment_tag: test
+hidden_dim: 512
+is_demo: False
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+manual_seed: 0
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+pose_loss: l1
+resume_path: /data/jyseo/functional_hand_type/jw/ckpts/htt_motion_proxy/checkpoint_10.pth
+scale_factor: 0.0001
+scale_jittering: 0
+spacing: 2
+train_dataset: mhavhands
+trans_factor: 100
+val_dataset: mhavhands
+val_split: test
+workers: 14
+=====================
+launched eval_rgb_pose.py at 2025-07-07 20:25:49.901555
+=== Git info ====
+b'1591a79'
+commit : b'1591a790a1ece91a447158166932ad181edacbcb'
+====== Options ======
+batch_size: 4
+cache_folder: ./jy/ckpts/
+center_idx: 0
+center_jittering: 0.1
+dataset_folder: ../data_MHAV/
+dim_feedforward: 2048
+dropout: 0.1
+enc_action_layers: 2
+enc_pose_layers: 2
+epochs: 500
+experiment_tag: test
+hidden_dim: 512
+is_demo: False
+lambda_action_loss: 2
+lambda_hand_2d: 1
+lambda_hand_z: 100
+manual_seed: 0
+nheads: 8
+ntokens_action: 128
+ntokens_pose: 16
+pose_loss: l1
+resume_path: /data/jyseo/functional_hand_type/jw/ckpts/htt_motion_proxy/checkpoint_11.pth
+scale_factor: 0.0001
+scale_jittering: 0
+spacing: 2
+train_dataset: mhavhands
+trans_factor: 100
+val_dataset: mhavhands
+val_split: test
+workers: 14
+=====================
+launched eval_rgb_pose.py at 2025-07-07 20:36:33.881137
+=== Git info ====
+b'1591a79'
+commit : b'1591a790a1ece91a447158166932ad181edacbcb'

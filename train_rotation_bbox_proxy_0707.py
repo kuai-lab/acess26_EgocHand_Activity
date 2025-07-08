@@ -10,7 +10,7 @@ from libyana.modelutils import modelio
 from libyana.modelutils import freeze
 from libyana.randomutils import setseeds
 
-from datasets import collate_gibson
+from datasets import collate_gibson_direction
 from models.htt_rotation_proxy_0707 import TemporalNet
 from netscripts import epochpass_htt
 from netscripts import reloadmodel, get_dataset_0707 
@@ -21,7 +21,7 @@ print('********')
 print('Lets start')
 
 def collate_fn(seq, extend_queries=[]):
-    return collate_gibson.collate_with_rotation_feature(seq,extend_queries)
+    return collate_gibson_direction.collate_with_rotation_feature(seq,extend_queries)
     
 def main(args):
     setseeds.set_all_seeds(args.manual_seed)

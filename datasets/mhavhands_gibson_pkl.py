@@ -191,7 +191,6 @@ class MHAVhands(object):
                         "RGB_undistorted", "processed_270_480",
                         self.rgb_template.format(iidx)
                     )
-                    
 
                     image_names.append(relative_img_path)
                     
@@ -262,46 +261,6 @@ class MHAVhands(object):
         img_path = os.path.join(self.rgb_root, img_path)
         img = Image.open(img_path).convert("RGB")
         return img
-    
-    
-    def get_right_hand_center(self, idx):
-        idx = self.get_dataidx(idx)
-        img_path = self.image_names[idx]
-        path_info = img_path.split('/')
-
-        # === 1. 시퀀스명과 프레임 번호 추출 ===
-        path_parts = img_path.split('/')
-        scene = path_parts[2]
-        subject = path_parts[3]
-        sequence = path_parts[4]
-        frame_name = path_parts[-1]  # e.g., RGB_undistorted_172.jpg
-        frame_index = int(path_info[-1].split('.')[0].split('_')[-1])
-
-        # === 2. pkl 경로 구성 ===
-        pkl_path = f"../data_MHAV/bbox_MHAV/{sequence}.pkl"
-        if not os.path.exists(pkl_path):
-            print(f"[Warning] bbox pkl not found: {pkl_path}")
-            return None
-
-        # === 3. pkl 로드 및 프레임 탐색 ===
-        with open(pkl_path, 'rb') as f:
-            data = pickle.load(f)
-
-        matched = None
-        for image_path, bbox_dict in data:
-            if f"RGB_undistorted_{frame_index}.jpg" in image_path:
-                matched = bbox_dict.get("right_hand", None)
-                break
-
-        if matched is None:
-            print(f"[Info] No right_hand found for frame {frame_index} in {sequence}")
-            return None
-
-        # === 4. 중심점 계산 ===
-        x, y, w, h = matched
-        center = (float(x + w / 2), float(y + h / 2))
-        return center   
-
     
 
     def get_hand_label(self, idx):  # hand type id 

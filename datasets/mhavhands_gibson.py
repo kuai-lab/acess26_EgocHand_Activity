@@ -169,22 +169,12 @@ class MHAVhands(object):
         }
 
         for sub in self.subjects:
-            # print(f"\n[INFO] Processing subject: {sub}")
-            # print("→ self.subjects_infos keys:", list(self.subjects_infos.keys()))
-
             for name in self.subjects_infos[sub]:
                 subject = name.split('_')[-1].lower()
                 action_name = name.split('_')[0]
                 frame_idx, object = self.subjects_infos[sub][name]
 
-                # print(f"  → Action: {action_name}, Subject: {subject}, Frames: {frame_idx}, Objects: {object}")
-
                 for iidx in range(int(frame_idx)):
-                    # relative_img_path = os.path.join(
-                    #     self.root , action_name, subject, name,
-                    #     "RGB_undistorted", "processed_270_480",
-                    #     self.rgb_template.format(iidx)
-                    # )
                     relative_img_path = os.path.join(
                         "../data_MHAV", action_name, subject, name,
                         "RGB_undistorted", "processed_270_480",
