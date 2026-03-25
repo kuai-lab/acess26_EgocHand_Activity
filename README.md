@@ -22,7 +22,7 @@ This repository provides:
   - hand type estimation
   - motion priors
 <p align="center">
-  <img src="figures/hand_overall_FINAL.png" width=50%>
+  <img src="figures/hand_overall_FINAL.png" width=70%>
 </p>
 
 ---
@@ -58,7 +58,7 @@ Our framework consists of four components:
    - fuses all features for final action prediction  
 
 <p align="center">
-  <img src="figures/motion_buffer_FINAL.png" width=50%>
+  <img src="figures/motion_buffer_FINAL.png" width=65%>
 </p>
 
 ---
@@ -92,7 +92,7 @@ Each sequence includes:
 - object/tool labels  
 - frame-wise hand type labels  
 <p align="center">
-  <img src="figures/hand_type_taxonomy_main.png" width=50%>
+  <img src="figures/hand_type_taxonomy_main.png" width=65%>
 </p>
 ---
 
