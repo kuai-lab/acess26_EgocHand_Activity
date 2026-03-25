@@ -1,3 +1,0 @@
-2025-04-04 15:55:38,892 - INFO - This is an info message.
-2025-04-04 15:55:38,892 - WARNING - This is a warning message.
-2025-04-04 15:55:38,892 - ERROR - This is an error message.

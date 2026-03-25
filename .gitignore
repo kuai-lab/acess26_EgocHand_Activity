@@ -10,12 +10,8 @@
 __pycache__/
 .DS_Store
 .vscode/
-idea/
-checkpoints
-ImageBind/
 hand_3d_outputs
 hand_3d_outputs_file
-jy/
 lmdb_imgs/
 wiLo/
 vis/
@@ -23,6 +19,3 @@ directional_tokens/
 direction_hist_results
 effhandegonet/
 mmpose/
-toy-test/
-ImageBind/
-jy

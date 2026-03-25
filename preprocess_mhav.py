@@ -110,7 +110,7 @@ class deserializeMatbin:
             print(f"⚠ Skipping {output_path} due to load failure.")
             return
 
-        print(f"🔄 Resizing image to {target_size}...")
+        print(f" Resizing image to {target_size}...")
         resized_img = cv2.resize(self.outputMat, target_size, interpolation=cv2.INTER_LINEAR)
 
         # 저장 경로 생성
@@ -121,7 +121,7 @@ class deserializeMatbin:
             resized_img = (resized_img / 256).astype(np.uint8)
 
         cv2.imwrite(output_path, resized_img)
-        print(f"✅ Resized image saved at: {output_path}")
+        print(f" Resized image saved at: {output_path}")
 
 
 
@@ -147,7 +147,7 @@ def process_image(jpg_path):
     try:
         image = cv2.imread(jpg_path)
         if image is None or image.size == 0:
-            print(f"❌ Failed to load image: {jpg_path} (File might be corrupted)")
+            print(f"Failed to load image: {jpg_path} (File might be corrupted)")
             return
 
         resized_image = cv2.resize(image, (480, 270), interpolation=cv2.INTER_AREA)
@@ -160,19 +160,19 @@ def process_image(jpg_path):
         cv2.imwrite(output_path, resized_image)
 
     except Exception as e:
-        print(f"❌ Failed to process {jpg_path}: {str(e)}")
+        print(f"Failed to process {jpg_path}: {str(e)}")
 
 def resize_images(data_root, num_workers=None):
-    print("🔍 Searching for 'warped_thermal' folders...")
+    print(" Searching for 'warped_thermal' folders...")
 
     # "warped_thermal" 폴더만 찾기
     overlay_folders = list(find_thermal_raw_folders(data_root))
 
     if not overlay_folders:
-        print("❌ No 'warped_thermal' folders found.")
+        print("No 'warped_thermal' folders found.")
         return
 
-    print(f"📂 Found {len(overlay_folders)} 'warped_thermal' folders.")
+    print(f" Found {len(overlay_folders)} 'warped_thermal' folders.")
 
     # 해당 폴더 내부의 .jpg 파일 수집
     jpg_files = []
@@ -180,10 +180,10 @@ def resize_images(data_root, num_workers=None):
         jpg_files.extend(get_jpg_files(folder))
 
     if not jpg_files:
-        print("❌ No .jpg files found in 'warped_thermal' folders.")
+        print(" No .jpg files found in 'warped_thermal' folders.")
         return
 
-    print(f"🖼️ Found {len(jpg_files)} .jpg images.")
+    print(f" Found {len(jpg_files)} .jpg images.")
 
     # 멀티프로세싱 설정
     if num_workers is None:

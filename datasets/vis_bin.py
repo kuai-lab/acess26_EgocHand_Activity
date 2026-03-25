@@ -11,7 +11,7 @@ def organize_bin_files(base_dir):
     all_dirs = [d for d in glob.glob(os.path.join(base_dir, "*", "*", "*")) if os.path.isdir(d)]
 
     for target_dir in all_dirs:
-        print(f"📂 Processing: {target_dir}")
+        print(f" Processing: {target_dir}")
 
         # 정리할 폴더 경로 생성
         depth_dir = os.path.join(target_dir, "depth")

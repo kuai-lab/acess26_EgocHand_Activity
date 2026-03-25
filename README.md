@@ -1,97 +1,136 @@
-# :wave: Functional Hand Type Prior for 3D Hand Pose Estimation and Action Recognition from Egocentric View Monocular Videos
-  
- 
-Original implementation of the paper "Functional Hand Type Prior for 3D Hand Pose Estimation and Action Recognition from Egocentric View Monocular Videos"
+# Egocentric Hand Activity Video Dataset and Bidirectional Motion-Priors
 
-[[Paper]](https://papers.bmvc2023.org/0193.pdf)
+Official implementation of the paper:
 
-<img  src="figures/new_handtype_taxonomy.png"  alt="Overview Image"  style="zoom:50%;" />
- 
+**Egocentric Hand Activity Video Dataset and Bidirectional Motion-Priors for Hand Action Recognition**
 
-## :clipboard:  Requirements
+📄 [Paper (IEEE Access 2026)](https://doi.org/10.1109/ACCESS.2026.3652803)
+
+---
+
+## 🔍 Overview
+
+Recognizing fine-grained hand actions from egocentric RGB videos is challenging, especially for **bidirectional action pairs** (e.g., *screw vs. unscrew*, *assemble vs. unassemble*), where visual appearance is similar and motion direction is the key cue.
+
+This repository provides:
+
+- **Ego-Bi dataset**: large-scale egocentric RGB dataset for tool-use scenarios  
+- **BMP (Bidirectional Motion-Prior)**: motion-aware module leveraging hand dynamics  
+- A unified framework combining:
+  - RGB features
+  - object/tool classification
+  - hand type estimation
+  - motion priors
+<p align="center">
+  <img src="figures/hand_overall_FINAL.png" width=50%>
+</p>
+
+---
+
+## ✨ Highlights
+
+- **1,223** video sequences  
+- **622,737** frames  
+- **19** action classes  
+- **38** hand type categories  
+- **34** objects / **29** tools  
+- **+8.96% improvement** on bidirectional action recognition  
+
+---
+
+## 🧠 Method
+
+Our framework consists of four components:
+
+1. **Object Multi-label Classification**  
+   - predicts object/tool presence  
+
+2. **Hand Type Estimation**  
+   - predicts fine-grained functional hand types  
+
+3. **Bidirectional Motion-Prior (BMP)**  
+   - extracts motion cues from predicted 3D hand poses  
+   - includes:
+     - **Rotation prior** (3D grasp-point motion)  
+     - **Direction prior** (2D wrist trajectory)  
+
+4. **Global Action Transformer**  
+   - fuses all features for final action prediction  
+
+<p align="center">
+  <img src="figures/motion_buffer_FINAL.png" width=50%>
+</p>
+
+---
+
+## 📦 Ego-Bi Dataset
+
+### Statistics
+
+- **1,223** sequences  
+- **622,737** frames  
+- **19** action classes  
+- **38** hand type classes  
+
+### Action Categories
+
+The dataset includes diverse tool-use interactions:
+
+- manipulation (e.g., assemble, unassemble)  
+- fastening (e.g., screw, unscrew)  
+- surface processing (e.g., sanding, polishing)  
+- cutting & shaping (e.g., cutting, carving, sawing)  
+- tool operations (e.g., drilling, hammering)  
+
+Several classes form **bidirectional pairs**, where motion direction is the key distinguishing factor.
+
+### Annotations
+
+Each sequence includes:
+
+- action labels  
+- object/tool labels  
+- frame-wise hand type labels  
+<p align="center">
+  <img src="figures/hand_type_taxonomy_main.png" width=50%>
+</p>
+---
+
+## ⚙️ Requirements
 
 ### Environment
 
-The code is tested with the following environment:
-
-```
-
+```bash
 Ubuntu 20.04
-
-python 3.9
-
-pytorch 1.10.0
-
+Python 3.9
+PyTorch 1.10.0
 torchvision 0.11.0
+CUDA 11.x
+```
 
+### 🎯 Training
+
+To train the model on Ego-Bi dataset:
+
+```bash
+python train_bidirectional_.py \
+  --dataset_root /path/to/Ego-Bi \
+  --batch_size 2 \
+  --epochs 45 \
+  --lr 3e-5 \
+  --max_len 128 \
+  --local_len 16 \
+  --experiment_tag egobi_bmp
 ```
 
 
-Other dependent packages as included in ```requirements.txt``` can be installed by pip. Note that we also refer to the utility functions in [```libyana```](https://github.com/hassony2/libyana). To install this ```libyana``` library, we follow [LPC, CVPR 2020](https://github.com/hassony2/handobjectconsist/blob/master/environment.yml/#L35) to run:
 
-```
-
-pip install git+https://github.com/hassony2/libyana@v0.2.0
-
-```
-
-  
-### Data Preprocessing
+### 📊 Evaluation
 
 
-To facilitate computation, for downloaded [FPHA](https://guiggh.github.io/publications/first-person-hands/) and [H2O](https://taeinkwon.com/projects/h2o/) datasets: We resize all images into the 480x270 pixels, and use lmdb to manage the training images. One may refer to the ```preprocess_utils.py``` for related functions.
-
-  
-### Pretrained Model
-
-Our pretrained weights for FPHA and H2O are located in ```./ws/ckpts/fhtp/```.
-
-
-## :tennis: Training
-
-### Train FPHA
-
-```
-
-python train.py --batch_size 2 --dataset_folder /data/fphab/ --train_dataset fhbhands --experiment_tag base_fpha --snapshot 2
-
-```
-
-### Train H2O
-
-```
-
-python train.py --batch_size 2 --dataset_folder /data/h2o/ --train_dataset h2ohands --experiment_tag base_h2o --snapshot 2
-
-```
-
-
-## :golf: Evaluation
-
-### Evaluate for Hand Pose Estimation and Action Recognition
-
-```
-
-CUDA_VISIBLE_DEVICES=0 python eval.py --batch_size <batch_size> --val_split <val_split> --train_dataset <dataset> --val_dataset <dataset> --dataset_folder <path_to_dataset_root> --resume_path <path_to_pth>
-
-```
-for evaluation on the dataset and split given by ```<dataset>``` and ```<val_split>```.
-
-Note that for the test split of H2O, we report the hand MEPE and action recall rate by referring to our submitted results in the [H2O challenge codalab](https://taeinkwon.com/projects/h2o/).
-
-### Plot 3D PCK(-RA) Curves for Hand Pose Estimation
-
-```
-
-python plot_pck_curves.py
-
-```
-
-to plot the curves the 3D PCK(-RA) at different error thresholds on FPHA and H2O.
-
-### Demo
-```
-
-CUDA_VISIBLE_DEVICES=0 python eval.py --batch_size <batch_size> --val_split <val_split> --train_dataset <dataset> --val_dataset <dataset> --dataset_folder <path_to_dataset_root> --resume_path <path_to_pth> --is_demo
-
+```bash
+python eval_bidirectional_.py \
+  --dataset_root /path/to/Ego-Bi \
+  --resume_path /path/to/checkpoint.pth \
+  --batch_size 2
 ```
