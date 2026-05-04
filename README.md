@@ -65,6 +65,12 @@ Our framework consists of four components:
 
 ## 📦 Ego-Bi Dataset
 
+### Dataset Download
+
+You can download the Ego-Bi dataset from the link below:
+
+- [Ego-Bi Dataset](DATASET_LINK)
+
 ### Statistics
 
 - **1,223** sequences  
@@ -127,7 +133,11 @@ python train_bidirectional_.py \
 
 ### 📊 Evaluation
 
+### Pretrained Model
 
+You can download the pretrained BMP model from the link below:
+
+- [Pretrained Model](MODEL_LINK_HERE)
 ```bash
 python eval_bidirectional_.py \
   --dataset_root /path/to/Ego-Bi \
