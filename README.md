@@ -69,7 +69,7 @@ Our framework consists of four components:
 
 You can download the Ego-Bi dataset from the link below:
 
-- [Ego-Bi Dataset](https://kuaicv.synology.me/weights/IEEE_Access_26/Egohand/dataset_MHAV.zip)
+- [Ego-Bi Dataset](https://kuaicv.synology.me/weights/IEEE_Access_26/Egochand/dataset_MHAV.zip)
 
 ### Statistics
 
@@ -137,7 +137,7 @@ python train_bidirectional_.py \
 
 You can download the pretrained BMP model from the link below:
 
-- [Pretrained Model](https://kuaicv.synology.me/weights/IEEE_Access_26/Egohand/ckpt.zip)
+- [Pretrained Model](https://kuaicv.synology.me/weights/IEEE_Access_26/Egochand/ckpt.zip)
 ```bash
 python eval_bidirectional_.py \
   --dataset_root /path/to/Ego-Bi \
