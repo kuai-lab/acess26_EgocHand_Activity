@@ -144,3 +144,16 @@ python eval_bidirectional_.py \
   --resume_path /path/to/checkpoint.pth \
   --batch_size 2
 ```
+
+## Citation
+```tex
+@article{seo2026egocentric,
+  title={Egocentric Hand Activity Video Dataset and Bidirectional Motion-Priors for Hand Action Recognition},
+  author={Seo, Jiyoung and Lee, Dong In and Lee, Pilhyeon and Lee, Jiwoo and Gil, Younhee and Ramani, Karthik and Kim, Sangpil},
+  journal={IEEE Access},
+  volume={14},
+  pages={8128--8148},
+  year={2026},
+  publisher={IEEE}
+}
+```
